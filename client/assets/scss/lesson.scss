@@ -1,0 +1,28 @@
+
+.lesson-content {
+  width: 75%;
+  margin: auto;
+  border: 1px solid $gray;
+  padding: 25px;
+  padding-bottom: 10px;
+  background-color: white;
+  border-radius: 15px;
+  /* Modify style for small screens */
+  @include breakpoint(portrait){
+    margin: 0;
+    width: 100%;
+    border-radius: 0px;
+    min-width: 0;
+  }
+}
+.lesson-container {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  @include breakpoint(portrait){
+    padding-top: 10px;
+  }
+}
+
+.lesson-button {
+    margin: 0 auto;
+}

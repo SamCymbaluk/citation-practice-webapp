@@ -1,0 +1,126 @@
+---
+name: quiz
+url: /quiz
+title: Quiz
+controller: QuizController
+---
+
+<!-- Page content -->
+<div class="vertical grid-block">
+  <!-- Wraps quiz horizontally. Loops but only displays the current citation -->
+  <div class="grid-content quiz" ng-repeat="citation in quiz.citations" ng-if="citationIndex === $index" class="slideInRight slideOutRight">
+
+    <div class="quiz-panel">
+      <!-- Citation content -->
+      <div class="quiz-content-container">
+        <h3 class="text-center">{{citation.title}}</h3>
+        <hr>
+        <p class="text-center quiz-text">{{citation.info}}</p>
+        <h4 class="text-center">Works Cited Reference</h4>
+
+        <div class="quiz-sortable-container">
+          <ul class="sortable" id="sortable{{$index}}">
+            <li class="quiz-sortable-block" ng-repeat="block in citation.blocks">
+              <h5>{{block}}</h5>
+            </li>
+          </ul>
+        </div>
+        <!--
+        <div class="quiz-sortable-container grid-block shrink wrap" id="sortable">
+          <div class="quiz-sortable-block shrink align-left" ng-repeat="block in quiz.citations[0].blocks">
+              <h5>{{block}}</h5>
+          </div>
+        </div> -->
+
+        <h4 class="text-center" style="padding-top: 20px">In-Text Citation</h4>
+        <label>
+          <span class="inline-label" style="margin: auto; width:20%; min-width:200px">
+            <span class="form-label">(</span>
+            <input type="text">
+            <span class="form-label">).</span>
+          </span>
+        </label>
+
+        <!-- Buttons -->
+        <div class="grid-block horizontal align-spaced" style="padding-top: 20px">
+
+
+          <zf-action-sheet id="my-actionsheet" class="quiz-button">
+            <zf-as-button><button class="large button success quiz-button" style="width: 100%">Hints</button></zf-as-button>
+            <zf-as-content position="top">
+              <zf-accordion auto-open="false" collapsible="true" multi-open="true">
+                <zf-accordion-item ng-repeat="hint in citation.hints track by $index" title="Hint {{$index+1}}" id="hint{{$index}}">
+                  <p>{{hint.text}}</p>
+                </zf-accordion-item>
+              </zf-accordion>
+            </zf-as-content>
+          </zf-action-sheet>
+
+          <!--<button zf-open="hints{{$index}}" class="large button success quiz-button" id="hintsBtn{{$index}}">Hints</button>-->
+          <button zf-open="submitModal" class="large button quiz-button" id="submitBtn{{$index}}">Submit</button>
+
+          <button class="large button warning quiz-button" id="checkBtn{{$index}}" ng-click="checkBlocks()">Check</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Nav bar -->
+  <div class="quiz-nav">
+    <div class="grid-block horizontal">
+
+      <div class="grid-content shrink">
+        <a class="quiz-nav-left">
+          <img zf-iconic="" icon="chevron" data-direction="left" size="medium" ng-click="prevCitation()">
+        </a>
+      </div>
+
+      <div class="grid-content">
+        <progress style="margin-bottom: 1px;" value="{{citationIndex + 1}}" max="{{quiz.citations.length}}"></progress>
+        <p class="text-center" style="color: #686868; margin-bottom: 1px">{{citationIndex + 1}}/{{quiz.citations.length}}</p>
+      </div>
+
+      <div class="grid-content shrink">
+        <a class="quiz-nav-right">
+          <img zf-iconic="" icon="chevron" data-direction="right" size="medium" ng-click="nextCitation()">
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Hints modal -->
+<div ng-repeat="citation in quiz.citations" zf-modal="" id="hints{{$index}}" animation-in="slideInUp" animation-out="slideOutUp">
+  <div class="grid-block vertical">
+
+    <zf-accordion auto-open="false" collapsible="true" multi-open="true">
+      <zf-accordion-item ng-repeat="hint in citation.hints track by $index" title="Hint {{$index+1}}" id="hint{{$index}}">
+        <p>{{hint.text}}</p>
+      </zf-accordion-item>
+    </zf-accordion>
+
+    <a zf-close="hints{{$index}}" class="button quiz-modal-button">Close</a>
+
+  </div>
+</div>
+
+<!--class="modal-overlay" role="dialog"-->
+<div  zf-modal="" class="quiz-submit-modal tiny dialog" overlay-close="false" id="submitModal" animation-in="slideInUp" animation-out="slideOutDown">
+  <div class="grid-block vertical">
+    <div class="grid-content">
+      <h3> Submit Citation? </h3>
+      <h5> Once you submit, you will not be able to edit your answer.</h5>
+    </div>
+    <div class="grid-block align-center">
+      <div class="grid-content shrink">
+        <a zf-close="submitModal" ng-click="submit()" class="button quiz-modal-button">Submit</a>
+      </div>
+      <div class="grid-content shrink">
+        <a zf-close="submitModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
