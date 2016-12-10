@@ -20,17 +20,11 @@ controller: QuizController
 
         <div class="quiz-sortable-container">
           <ul class="sortable" id="sortable{{$index}}">
-            <li class="quiz-sortable-block" ng-repeat="block in citation.blocks">
-              <h5>{{block}}</h5>
+            <li class="quiz-sortable-block" ng-repeat="block in citation.blocks track by $index">
+              <h3 ng-bind-html="renderHtml(block.text)" id="{{block.id}}"></h3>
             </li>
           </ul>
         </div>
-        <!--
-        <div class="quiz-sortable-container grid-block shrink wrap" id="sortable">
-          <div class="quiz-sortable-block shrink align-left" ng-repeat="block in quiz.citations[0].blocks">
-              <h5>{{block}}</h5>
-          </div>
-        </div> -->
 
         <h4 class="text-center" style="padding-top: 20px">In-Text Citation</h4>
         <label>

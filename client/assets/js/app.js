@@ -10,18 +10,35 @@
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])
-    .controller('QuizController', function($scope, $log, $state, $timeout){
+    .controller('QuizController', function($scope, $log, $state, $timeout, $sce){
 
       var vm = this;
 
-      //Test data from db stores a pristine copy of quiz
+      //Test data from db
       const quiz = {
         citations: [
           {
             id: "a195080e-bcc7-11e6-a4a6-cec0c932ce01",
-            title: "Single Author",
+            title: "Book with one author",
             info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: ["Block1","Block2","Block3","Block4","Block5","Block6","Block7","Block8","Block9","Block10"],
+            blocks: [
+              {
+                id: "21",
+                text: "Tatenda,"
+              },
+              {
+                id: "22",
+                text: "Amadi P."
+              },
+              {
+                id: "23",
+                text: "<em>Crunking: A World History.</em> Cape Media,"
+              },
+              {
+                id: "24",
+                text: "2002."
+              }
+            ],
             hints: [
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
@@ -34,7 +51,68 @@
             id: "a195080e-bcc7-11e6-a4a6-cec0c932ce02",
             title: "Two Authors",
             info: "Info about two authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: ["Block1","Block2","Block3","Block4","Block5","Block6","Block7","Block8","Block9","Block10","Block11","Block12","Block13","Block14","Block15"],
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              },
+              {
+                id: "6",
+                text: "Block6"
+              },
+              {
+                id: "7",
+                text: "Block7"
+              },
+              {
+                id: "8",
+                text: "Block8"
+              },
+              {
+                id: "9",
+                text: "Block9"
+              },
+              {
+                id: "10",
+                text: "Block10"
+              },
+              {
+                id: "11",
+                text: "Block11"
+              },
+              {
+                id: "12",
+                text: "Block12"
+              },
+              {
+                id: "13",
+                text: "Block13"
+              },
+              {
+                id: "14",
+                text: "Block14"
+              },
+              {
+                id: "15",
+                text: "Block15"
+              }
+            ],
             hints: [
               "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
               "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
@@ -47,7 +125,88 @@
             id: "a195080e-bcc7-11e6-a4a6-cec0c932ce03",
             title: "Another Citation",
             info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: ["Block1","Block2","Block3","Block4","Block5","Block6","Block7","Block8","Block9","Block10","Block11","Block12","Block13","Block14","Block15","Block16","Block17","Block18","Block19","Block20"],
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              },
+              {
+                id: "6",
+                text: "Block6"
+              },
+              {
+                id: "7",
+                text: "Block7"
+              },
+              {
+                id: "8",
+                text: "Block8"
+              },
+              {
+                id: "9",
+                text: "Block9"
+              },
+              {
+                id: "10",
+                text: "Block10"
+              },
+              {
+                id: "11",
+                text: "Block11"
+              },
+              {
+                id: "12",
+                text: "Block12"
+              },
+              {
+                id: "13",
+                text: "Block13"
+              },
+              {
+                id: "14",
+                text: "Block14"
+              },
+              {
+                id: "15",
+                text: "Block15"
+              },
+              {
+                id: "16",
+                text: "Block16"
+              },
+              {
+                id: "17",
+                text: "Block17"
+              },
+              {
+                id: "18",
+                text: "Block18"
+              },
+              {
+                id: "19",
+                text: "Block19"
+              },
+              {
+                id: "20",
+                text: "Block20"
+              }
+            ],
             hints: [
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
@@ -60,7 +219,28 @@
             id: "a195080e-bcc7-11e6-a4a6-cec0c932ce04",
             title: "Difficult Citation",
             info: "Info about two authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: ["Block1","Block2","Block3","Block4","Block5"],
+            blocks: [
+              {
+                id: 1,
+                text: "Block1"
+              },
+              {
+                id: 2,
+                text: "Block2"
+              },
+              {
+                id: 3,
+                text: "Block3"
+              },
+              {
+                id: 4,
+                text: "Block4"
+              },
+              {
+                id: 5,
+                text: "Block5"
+              }
+            ],
             hints: [
               "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
               "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
@@ -75,7 +255,6 @@
       /*
         Setup code
       */
-
       //Quiz state object
       $scope.quiz = {};
 
@@ -86,9 +265,9 @@
       _setupCitation();
 
 
-      function _indexOfBlock(blockText, citationId) {
+      /*function _indexOfBlock(blockText, citationId) {
         return quiz.citations.find((ele) => ele.id === citationId).blocks.indexOf($.trim(blockText));
-      }
+      }*/
 
       function _shuffleArray(a) {
         for (let i = a.length; i; i--) {
@@ -101,19 +280,22 @@
         return JSON.parse(JSON.stringify(obj));
       }
 
-      function _scoreBlocks(){
-        const citation = $scope.quiz.citations[$scope.citationIndex];
-        const citationId = citation.id;
-        const blocks = $(".quiz-sortable-block");
-
-        let correct = 0;
-        const amount = blocks.length;
-
-        for(let i = 0; i < blocks.length; i++){
-          if(i === _indexOfBlock(blocks[i].innerText, citationId)) correct++;
+      function _generateUUID(){
+        let d = new Date().getTime();
+        if(window.performance && typeof window.performance.now === "function"){
+            d += performance.now(); //use high-precision timer if available
         }
+        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            let r = (d + Math.random()*16)%16 | 0;
+            d = Math.floor(d/16);
+            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+      }
 
-        return correct/amount*100;
+      function _getBlock(citationId, blockId){
+        const citation = quiz.citations.filter((citation) => citation.id === citationId)[0];
+        return citation.blocks.filter((block) => block.id === blockId)[0];
       }
 
       function _setupQuiz() {
@@ -122,6 +304,7 @@
         //Shuffle citation order after cloning citations from quiz
         const quizCitations = _clone(quiz.citations);
         _shuffleArray(quizCitations);
+
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
@@ -132,37 +315,50 @@
 
 
           //Setup hint arrays
-          citation.hints = quiz.citations[index].hints.map((ele) => {
+          citation.hints = quizCitations[index].hints.map((ele) => {
             return {
-            text: ele,
-            unlocked: false
-          }});
+              text: ele,
+              unlocked: false
+            }
+          });
+
+          //Setup block array
+          citation.blocks = quizCitations[index].blocks.map((ele) => {
+            return {
+              text: ele.text,
+              id: ele.id
+            }
+          });
+
+          //Stores an in-order copy of the block ids
+          citation.answer = _clone(citation.blocks).map((ele) => ele.id);
 
           citation.checks = 0;
           citation.submitted = false;
 
-          //Shuffle citation blocks
-          _shuffleArray($scope.quiz.citations[index].blocks);
+          _shuffleArray(citation.blocks);
         }
       }
 
       function _setupSortable() {
         //Calling timeout gives the DOM time to load
         $timeout(function() {
-          $("#sortable"+$scope.citationIndex).sortable({
+          $("#sortable"+$scope.citationIndex+":visible").sortable({
 
             //Sortable properties
-            containment: "parent",
-            revert: true,
+            tolerance: "intersect",
 
             //BLocks have been modified
             stop: function(event, ui) {
 
+              const citation = $scope.quiz.citations[$scope.citationIndex];
+
               //Update quiz state
-              $scope.quiz.citations[$scope.citationIndex].blocks = Array.from($(".quiz-sortable-block")).map((ele) => $.trim(ele.innerText));
+              const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
+              citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
               //Alow answer to be checked
-              if($scope.quiz.citations[$scope.citationIndex].checks < 5){
+              if(citation.checks < 5){
                 $("#checkBtn"+$scope.citationIndex).removeClass("disabled");
               }
             },
@@ -219,11 +415,11 @@
       $scope.checkBlocks = function() {
         $timeout(() => {
             const citation = $scope.quiz.citations[$scope.citationIndex];
-            const citationId = citation.id;
+            const answer = citation.answer;
             const blocks = $(".quiz-sortable-block");
 
             for(let i = 0; i < blocks.length; i++){
-              if(i === _indexOfBlock(blocks[i].innerText, citationId)){
+              if(i === answer.indexOf(blocks[i].childNodes[1].id)){
                 $(blocks[i]).addClass("correct");
               }else{
                 $(blocks[i]).addClass("incorrect");
@@ -233,14 +429,19 @@
             citation.checks++;
 
             //Unlock new hint
-            citation.hints.push(citation.lockedHints.splice(0,1));
+            //citation.hints.push(citation.lockedHints.splice(0,1));
 
             $("#checkBtn"+$scope.citationIndex).addClass("disabled");
+
         }).then($timeout(() => {
           $(".quiz-sortable-block").removeClass("correct");
           $(".quiz-sortable-block").removeClass("incorrect");
         },5000));
       }
+
+      $scope.renderHtml = function(html) {
+        return $sce.trustAsHtml(html);
+      };
 
       $scope.submit = function() {
         $timeout(function () {
@@ -252,8 +453,6 @@
 
           $(".quiz-sortable-block").removeClass("correct");
           $(".quiz-sortable-block").removeClass("incorrect");
-
-          console.log(_scoreBlocks());
         });
       }
 
