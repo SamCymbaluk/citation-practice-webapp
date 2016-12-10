@@ -12,8 +12,6 @@
   ])
     .controller('QuizController', function($scope, $log, $state, $timeout, $sce){
 
-      var vm = this;
-
       //Test data from db
       const quiz = {
         citations: [
@@ -255,51 +253,29 @@
       /*
         Setup code
       */
-      //Quiz state object
-      $scope.quiz = {};
 
+      var vm = this;
+
+      //Exports
+      vm.nextCitation = nextCitation;
+      vm.prevCitation = prevCitation;
+      vm.checkBlocks = checkBlocks;
+      vm.submit = submit;
+      vm.renderHtml = renderHtml;
+
+      //Quiz state object
+      vm.quiz = {};
       //Stores the current active citation index
-      $scope.citationIndex = 0;
+      vm.citationIndex = 0;
 
       _setupQuiz();
       _setupCitation();
 
-
-      /*function _indexOfBlock(blockText, citationId) {
-        return quiz.citations.find((ele) => ele.id === citationId).blocks.indexOf($.trim(blockText));
-      }*/
-
-      function _shuffleArray(a) {
-        for (let i = a.length; i; i--) {
-            let j = Math.floor(Math.random() * i);
-            [a[i - 1], a[j]] = [a[j], a[i - 1]];
-        }
-      }
-
-      function _clone(obj){
-        return JSON.parse(JSON.stringify(obj));
-      }
-
-      function _generateUUID(){
-        let d = new Date().getTime();
-        if(window.performance && typeof window.performance.now === "function"){
-            d += performance.now(); //use high-precision timer if available
-        }
-        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            let r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-        });
-        return uuid;
-      }
-
-      function _getBlock(citationId, blockId){
-        const citation = quiz.citations.filter((citation) => citation.id === citationId)[0];
-        return citation.blocks.filter((block) => block.id === blockId)[0];
-      }
-
+      /*
+        Setup functions
+      */
       function _setupQuiz() {
-        $scope.quiz.citations = [];
+        vm.quiz.citations = [];
 
         //Shuffle citation order after cloning citations from quiz
         const quizCitations = _clone(quiz.citations);
@@ -309,9 +285,9 @@
         //Populate citation array with citation objects
         for(const index in quizCitations) {
           if(index === 10) break; //10 citations maximus
-          $scope.quiz.citations.push(quizCitations[index]);
+          vm.quiz.citations.push(quizCitations[index]);
 
-          const citation = $scope.quiz.citations[index];
+          const citation = vm.quiz.citations[index];
 
 
           //Setup hint arrays
@@ -343,7 +319,7 @@
       function _setupSortable() {
         //Calling timeout gives the DOM time to load
         $timeout(function() {
-          $("#sortable"+$scope.citationIndex+":visible").sortable({
+          $("#sortable"+vm.citationIndex+":visible").sortable({
 
             //Sortable properties
             tolerance: "intersect",
@@ -351,7 +327,7 @@
             //BLocks have been modified
             stop: function(event, ui) {
 
-              const citation = $scope.quiz.citations[$scope.citationIndex];
+              const citation = vm.quiz.citations[vm.citationIndex];
 
               //Update quiz state
               const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
@@ -359,7 +335,7 @@
 
               //Alow answer to be checked
               if(citation.checks < 5){
-                $("#checkBtn"+$scope.citationIndex).removeClass("disabled");
+                $("#checkBtn"+vm.citationIndex).removeClass("disabled");
               }
             },
             start: function() {
@@ -367,7 +343,7 @@
               $(".quiz-sortable-block").removeClass("incorrect");
             }
           });
-          $("#sortable"+$scope.citationIndex).disableSelection();
+          $("#sortable"+vm.citationIndex).disableSelection();
         });
       }
 
@@ -378,43 +354,41 @@
       }
 
       function _setupCitation(){
-        const citation = $scope.quiz.citations[$scope.citationIndex];
+        const citation = vm.quiz.citations[vm.citationIndex];
         _setupSortable();
 
         $timeout(() => {
           if(citation.submitted){
             $(".quiz-sortable-block").addClass("submitted");
-            $("#sortable"+$scope.citationIndex).sortable("disable");
+            $("#sortable"+vm.citationIndex).sortable("disable");
 
           }
         });
       }
 
 
-
       /*
-        Scope functions
+        Public functions
       */
-
-      $scope.nextCitation = function () {
+      function nextCitation() {
         $timeout(function() {
-          if($scope.citationIndex === $scope.quiz.citations.length - 1) return;
-          $scope.citationIndex++;
+          if(vm.citationIndex === vm.quiz.citations.length - 1) return;
+          vm.citationIndex++;
           _setupCitation();
         });
       }
 
-      $scope.prevCitation = function () {
+      function prevCitation() {
         $timeout(function() {
-          if($scope.citationIndex === 0) return;
-          $scope.citationIndex--;
+          if(vm.citationIndex === 0) return;
+          vm.citationIndex--;
           _setupCitation();
         });
       }
 
-      $scope.checkBlocks = function() {
+      function checkBlocks() {
         $timeout(() => {
-            const citation = $scope.quiz.citations[$scope.citationIndex];
+            const citation = vm.quiz.citations[vm.citationIndex];
             const answer = citation.answer;
             const blocks = $(".quiz-sortable-block");
 
@@ -431,7 +405,7 @@
             //Unlock new hint
             //citation.hints.push(citation.lockedHints.splice(0,1));
 
-            $("#checkBtn"+$scope.citationIndex).addClass("disabled");
+            $("#checkBtn"+vm.citationIndex).addClass("disabled");
 
         }).then($timeout(() => {
           $(".quiz-sortable-block").removeClass("correct");
@@ -439,17 +413,17 @@
         },5000));
       }
 
-      $scope.renderHtml = function(html) {
+       function renderHtml(html) {
         return $sce.trustAsHtml(html);
-      };
+      }
 
-      $scope.submit = function() {
-        $timeout(function () {
-          const citation = $scope.quiz.citations[$scope.citationIndex];
+      function submit() {
+        $timeout(() => {
+          const citation = vm.quiz.citations[vm.citationIndex];
           citation.submitted = true;
 
           $(".quiz-sortable-block").addClass("submitted");
-          $("#sortable"+$scope.citationIndex).sortable("disable");
+          $("#sortable"+vm.citationIndex).sortable("disable");
 
           $(".quiz-sortable-block").removeClass("correct");
           $(".quiz-sortable-block").removeClass("incorrect");
@@ -457,19 +431,51 @@
       }
 
       //Listen for keypresses
-      $(document).ready(function() {
-        $(this).on('keydown', function(event) {
+      $(document).ready(() => {
+        $(this).on('keydown', (event) => {
 
           //Down or right
           if (event.keyCode === 39 || event.keyCode === 40) {
-              $scope.nextCitation();
+            nextCitation();
           //Up or left
         }else if(event.keyCode === 37 || event.keyCode === 38){
-            $scope.prevCitation();
+            prevCitation();
           }
 
         });
       })
+
+      /*
+        Util functions
+      */
+      function _shuffleArray(a) {
+        for (let i = a.length; i; i--) {
+            let j = Math.floor(Math.random() * i);
+            [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        }
+      }
+
+      function _clone(obj){
+        return JSON.parse(JSON.stringify(obj));
+      }
+
+      function _generateUUID(){
+        let d = new Date().getTime();
+        if(window.performance && typeof window.performance.now === "function"){
+            d += performance.now(); //use high-precision timer if available
+        }
+        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            let r = (d + Math.random()*16)%16 | 0;
+            d = Math.floor(d/16);
+            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+      }
+
+      function _getBlock(citationId, blockId){
+        const citation = quiz.citations.filter((citation) => citation.id === citationId)[0];
+        return citation.blocks.filter((block) => block.id === blockId)[0];
+      }
   })
     .config(config)
     .run(run)

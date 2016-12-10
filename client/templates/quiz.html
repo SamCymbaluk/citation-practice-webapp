@@ -2,13 +2,13 @@
 name: quiz
 url: /quiz
 title: Quiz
-controller: QuizController
+controller: QuizController as vm
 ---
 
 <!-- Page content -->
 <div class="vertical grid-block">
   <!-- Wraps quiz horizontally. Loops but only displays the current citation -->
-  <div class="grid-content quiz" ng-repeat="citation in quiz.citations" ng-if="citationIndex === $index" class="slideInRight slideOutRight">
+  <div class="grid-content quiz" ng-repeat="citation in vm.quiz.citations" ng-if="vm.citationIndex === $index" class="slideInRight slideOutRight">
 
     <div class="quiz-panel">
       <!-- Citation content -->
@@ -21,7 +21,7 @@ controller: QuizController
         <div class="quiz-sortable-container">
           <ul class="sortable" id="sortable{{$index}}">
             <li class="quiz-sortable-block" ng-repeat="block in citation.blocks track by $index">
-              <h3 ng-bind-html="renderHtml(block.text)" id="{{block.id}}"></h3>
+              <h3 ng-bind-html="vm.renderHtml(block.text)" id="{{block.id}}"></h3>
             </li>
           </ul>
         </div>
@@ -53,7 +53,7 @@ controller: QuizController
           <!--<button zf-open="hints{{$index}}" class="large button success quiz-button" id="hintsBtn{{$index}}">Hints</button>-->
           <button zf-open="submitModal" class="large button quiz-button" id="submitBtn{{$index}}">Submit</button>
 
-          <button class="large button warning quiz-button" id="checkBtn{{$index}}" ng-click="checkBlocks()">Check</button>
+          <button class="large button warning quiz-button" id="checkBtn{{$index}}" ng-click="vm.checkBlocks()">Check</button>
         </div>
       </div>
     </div>
@@ -66,18 +66,18 @@ controller: QuizController
 
       <div class="grid-content shrink">
         <a class="quiz-nav-left">
-          <img zf-iconic="" icon="chevron" data-direction="left" size="medium" ng-click="prevCitation()">
+          <img zf-iconic="" icon="chevron" data-direction="left" size="medium" ng-click="vm.prevCitation()">
         </a>
       </div>
 
       <div class="grid-content">
-        <progress style="margin-bottom: 1px;" value="{{citationIndex + 1}}" max="{{quiz.citations.length}}"></progress>
-        <p class="text-center" style="color: #686868; margin-bottom: 1px">{{citationIndex + 1}}/{{quiz.citations.length}}</p>
+        <progress style="margin-bottom: 1px;" value="{{vm.citationIndex + 1}}" max="{{vm.quiz.citations.length}}"></progress>
+        <p class="text-center" style="color: #686868; margin-bottom: 1px">{{vm.citationIndex + 1}}/{{vm.quiz.citations.length}}</p>
       </div>
 
       <div class="grid-content shrink">
         <a class="quiz-nav-right">
-          <img zf-iconic="" icon="chevron" data-direction="right" size="medium" ng-click="nextCitation()">
+          <img zf-iconic="" icon="chevron" data-direction="right" size="medium" ng-click="vm.nextCitation()">
         </a>
       </div>
 
@@ -87,7 +87,7 @@ controller: QuizController
 </div>
 
 <!-- Hints modal -->
-<div ng-repeat="citation in quiz.citations" zf-modal="" id="hints{{$index}}" animation-in="slideInUp" animation-out="slideOutUp">
+<div ng-repeat="citation in vm.quiz.citations" zf-modal="" id="hints{{$index}}" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
 
     <zf-accordion auto-open="false" collapsible="true" multi-open="true">
@@ -110,7 +110,7 @@ controller: QuizController
     </div>
     <div class="grid-block align-center">
       <div class="grid-content shrink">
-        <a zf-close="submitModal" ng-click="submit()" class="button quiz-modal-button">Submit</a>
+        <a zf-close="submitModal" ng-click="vm.submit()" class="button quiz-modal-button">Submit</a>
       </div>
       <div class="grid-content shrink">
         <a zf-close="submitModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
