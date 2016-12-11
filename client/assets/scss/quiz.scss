@@ -149,11 +149,11 @@
 .quiz-nav {
   display: flex;
   width: 75%;
-  height: 5rem;
+  height: 80px;
   border: 1px solid $gray;
   margin: auto;
   padding: 25px;
-  padding-bottom: 10px;
+  padding-top: 10px;
   border-radius: 15px;
   background-color: white;
   min-width: 580px;
@@ -169,6 +169,12 @@
   padding-right: 2rem;
 }
 
-.quiz-nav-right{
+.quiz-nav-right {
   padding-left: 2rem;
+}
+
+.quiz-nav-button {
+  margin-top: 5px;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }

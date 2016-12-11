@@ -52,18 +52,28 @@ controller: QuizController as vm
   <div class="quiz-nav">
     <div class="grid-block horizontal">
 
-      <div class="grid-content shrink">
+      <div class="grid-content shrink" style="padding-top: 15px">
         <a class="quiz-nav-left">
           <img zf-iconic="" icon="chevron" data-direction="left" size="medium" ng-click="vm.prevCitation()">
         </a>
       </div>
 
-      <div class="grid-content">
-        <progress style="margin-bottom: 1px;" value="{{vm.citationIndex + 1}}" max="{{vm.quiz.citations.length}}"></progress>
-        <p class="text-center" style="color: #686868; margin-bottom: 1px">{{vm.citationIndex + 1}}/{{vm.quiz.citations.length}}</p>
+      <div class="grid-block align-spaced">
+
+        <!--Progress bar-->
+        <div class="grid-content" ng-if="!(vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted())">
+          <progress style="margin-top: 15px; margin-bottom: 1px;" value="{{vm.citationIndex + 1}}" max="{{vm.quiz.citations.length}}"></progress>
+          <p class="text-center" style="color: #686868; margin-bottom: 1px">{{vm.citationIndex + 1}}/{{vm.quiz.citations.length}}</p>
+        </div>
+        <!--Quiz submit button-->
+        <span ng-if="vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted()">
+          <button class="large button quiz-nav-button">Submit Quiz</button>
+          <button class="large button quiz-nav-button">Practice More</button>
+        </span>
+
       </div>
 
-      <div class="grid-content shrink">
+      <div class="grid-content shrink" style="padding-top: 15px">
         <a class="quiz-nav-right">
           <img zf-iconic="" icon="chevron" data-direction="right" size="medium" ng-click="vm.nextCitation()">
         </a>
