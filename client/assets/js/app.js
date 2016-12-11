@@ -10,7 +10,7 @@
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])
-    .controller('QuizController', function($scope, $log, $state, $timeout, $sce){
+    .controller('QuizController', function($scope, $log, $state, $timeout, $sce, FoundationApi){
 
       //Test data from db
       const quiz = {
@@ -259,6 +259,7 @@
       //Exports
       vm.nextCitation = nextCitation;
       vm.prevCitation = prevCitation;
+      vm.check = check;
       vm.checkBlocks = checkBlocks;
       vm.submit = submit;
       vm.renderHtml = renderHtml;
@@ -386,7 +387,17 @@
         });
       }
 
-      function checkBlocks() {
+      function check() {
+        if(sessionStorage.mlaQuizCheckConfirmation){
+          checkBlocks();
+        }else{
+          console.log(FoundationApi);
+          $("#checkModal").addClass('is-active');
+        }
+      }
+
+      function checkBlocks(){
+        sessionStorage.mlaQuizCheckConfirmation = true;
         $timeout(() => {
             const citation = vm.quiz.citations[vm.citationIndex];
             const answer = citation.answer;
@@ -407,10 +418,7 @@
 
             $("#checkBtn"+vm.citationIndex).addClass("disabled");
 
-        }).then($timeout(() => {
-          $(".quiz-sortable-block").removeClass("correct");
-          $(".quiz-sortable-block").removeClass("incorrect");
-        },5000));
+        });
       }
 
        function renderHtml(html) {
@@ -457,19 +465,6 @@
 
       function _clone(obj){
         return JSON.parse(JSON.stringify(obj));
-      }
-
-      function _generateUUID(){
-        let d = new Date().getTime();
-        if(window.performance && typeof window.performance.now === "function"){
-            d += performance.now(); //use high-precision timer if available
-        }
-        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            let r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-        });
-        return uuid;
       }
 
       function _getBlock(citationId, blockId){
