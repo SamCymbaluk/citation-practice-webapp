@@ -1,10 +1,8 @@
-# Foundation for Apps Template
+# MLA Citation Game
 
-[![devDependency Status](https://david-dm.org/zurb/foundation-apps-template/dev-status.svg)](https://david-dm.org/zurb/foundation-apps-template#info=devDependencies)
+This is a web app built using Foundation for Apps for Cathedral High School.
 
-This is the default template project for Foundation for Apps, powered by Gulp, Angular, and libsass. It provides you with a basic template to get started with Foundation for Apps and Angular.
-
-If you're already an Angular developer, you may instead want to install the components into your own stack using Bower: `bower install foundation-apps`
+This app provides teachers and instructors as easy way to help their students practice MLA 8 citations.
 
 ## Requirements
 
