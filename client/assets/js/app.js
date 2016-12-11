@@ -226,7 +226,7 @@
       vm.nextCitation = nextCitation;
       vm.prevCitation = prevCitation;
       vm.check = check;
-      vm.checkBlocks = checkBlocks;
+      vm.checkBypass = checkBypass;
       vm.submit = submit;
       vm.renderHtml = renderHtml;
 
@@ -234,9 +234,12 @@
       vm.quiz = {};
       //Stores the current active citation index
       vm.citationIndex = 0;
+      //Stores answers to quiz (not visible to vm)
+      const answers = [];
+
 
       _setupQuiz();
-      _setupCitation();
+      _updateCitation();
 
       /*
         Setup functions
@@ -251,7 +254,7 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index === 10) break; //10 citations maximus
+          if(index === 10) break; //10 citations maximus`
           vm.quiz.citations.push(quizCitations[index]);
 
           const citation = vm.quiz.citations[index];
@@ -274,7 +277,7 @@
           });
 
           //Stores an in-order copy of the block ids
-          citation.answer = _clone(citation.blocks).map((ele) => ele.id);
+          answers.push(_clone(citation.blocks).map((ele) => ele.id));
 
           citation.checks = 0;
           citation.submitted = false;
@@ -320,7 +323,7 @@
         });
       }
 
-      function _setupCitation(){
+      function _updateCitation(){
         const citation = vm.quiz.citations[vm.citationIndex];
         _setupSortable();
 
@@ -329,9 +332,16 @@
             $(".quiz-sortable-block").addClass("submitted");
             $("#sortable"+vm.citationIndex).sortable("disable");
 
+            $(".quiz-sortable-block").removeClass("correct");
+            $(".quiz-sortable-block").removeClass("incorrect");
+
+            $("#submitBtn"+vm.citationIndex).addClass("disabled");
+            $("#checkBtn"+vm.citationIndex).addClass("disabled");
+            $("#hintsBtn"+vm.citationIndex).addClass("disabled");
           }
         });
       }
+
 
 
       /*
@@ -341,7 +351,7 @@
         $timeout(function() {
           if(vm.citationIndex === vm.quiz.citations.length - 1) return;
           vm.citationIndex++;
-          _setupCitation();
+          _updateCitation();
         });
       }
 
@@ -349,24 +359,24 @@
         $timeout(function() {
           if(vm.citationIndex === 0) return;
           vm.citationIndex--;
-          _setupCitation();
+          _updateCitation();
         });
       }
 
       function check() {
         if(sessionStorage.mlaQuizCheckConfirmation){
-          checkBlocks();
+          checkBypass();
         }else{
           console.log(FoundationApi);
           $("#checkModal").addClass('is-active');
         }
       }
 
-      function checkBlocks(){
+      function checkBypass(){
         sessionStorage.mlaQuizCheckConfirmation = true;
         $timeout(() => {
             const citation = vm.quiz.citations[vm.citationIndex];
-            const answer = citation.answer;
+            const answer = answers[vm.citationIndex];
             const blocks = $(".quiz-sortable-block");
 
             for(let i = 0; i < blocks.length; i++){
@@ -392,16 +402,10 @@
       }
 
       function submit() {
-        $timeout(() => {
-          const citation = vm.quiz.citations[vm.citationIndex];
-          citation.submitted = true;
+        const citation = vm.quiz.citations[vm.citationIndex];
+        citation.submitted = true;
 
-          $(".quiz-sortable-block").addClass("submitted");
-          $("#sortable"+vm.citationIndex).sortable("disable");
-
-          $(".quiz-sortable-block").removeClass("correct");
-          $(".quiz-sortable-block").removeClass("incorrect");
-        });
+        _updateCitation();
       }
 
       //Listen for keypresses
