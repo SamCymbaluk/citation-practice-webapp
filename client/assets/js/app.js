@@ -229,6 +229,7 @@
       vm.checkBypass = checkBypass;
       vm.submit = submit;
       vm.renderHtml = renderHtml;
+      vm.everythingSubmitted = everythingSubmitted;
 
       //Quiz state object
       vm.quiz = {};
@@ -406,6 +407,13 @@
         citation.submitted = true;
 
         _updateCitation();
+      }
+
+      function everythingSubmitted(){
+        for(const citation of vm.quiz.citations){
+          if(!citation.submitted) return false;
+        }
+        return true;
       }
 
       //Listen for keypresses
