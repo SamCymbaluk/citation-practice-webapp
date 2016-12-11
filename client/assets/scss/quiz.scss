@@ -149,6 +149,7 @@
 .quiz-nav {
   display: flex;
   width: 75%;
+  height: 5rem;
   border: 1px solid $gray;
   margin: auto;
   padding: 25px;
@@ -165,9 +166,9 @@
 }
 
 .quiz-nav-left {
-  padding-right: 50px;
+  padding-right: 2rem;
 }
 
 .quiz-nav-right{
-  padding-left: 50px;
+  padding-left: 2rem;
 }
