@@ -125,11 +125,24 @@
 }
 
 .quiz-hint {
-  background-color: $gray-darkest;
 }
 
-.quiz-hint-unlocked {
-  background-color: lighten($success-color, 8);
+.quiz-hint-locked {
+  /*background: repeating-linear-gradient(
+    135deg,
+    $gray-dark, $gray-dark .125em,
+    #f3f3f3 0, #f3f3f3 .75em
+  );
+  */
+    background-color: $gray;
+    border: 1px solid $gray-dark;
+    padding: 1rem;
+}
+
+.quiz-hint-locked p {
+    margin: 0px;
+    margin-right: 0.5rem;
+    line-height: 16px;
 }
 
 

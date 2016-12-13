@@ -557,7 +557,7 @@
       }
 
       function _setupTooltips() {
-        $timeout(function() {
+        $timeout(() => {
           $('[data-toggle="tooltip"]').tooltip();
         });
       }
@@ -628,8 +628,13 @@
 
             citation.checks++;
 
-            //Unlock new hint
-            //citation.hints.push(citation.lockedHints.splice(0,1));
+            //Unlock first locked hint
+            for(const hint of citation.hints){
+              if(!hint.unlocked){
+                hint.unlocked = true;
+                break;
+              }
+            }
 
             $("#checkBtn"+vm.citationIndex).addClass("disabled");
 

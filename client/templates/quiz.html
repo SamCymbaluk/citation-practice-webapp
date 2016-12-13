@@ -88,11 +88,20 @@ controller: QuizController as vm
 <div ng-repeat="citation in vm.quiz.citations" zf-modal="" id="hints{{$index}}" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
 
-    <zf-accordion auto-open="false" collapsible="true" multi-open="true">
-      <zf-accordion-item ng-repeat="hint in citation.hints track by $index" title="Hint {{$index+1}}" id="hint{{$index}}">
+    <!--Unlocked hints accordion-->
+    <zf-accordion auto-open="false" collapsible="true">
+      <zf-accordion-item ng-repeat="hint in citation.hints track by $index" ng-if="hint.unlocked" title="Hint {{$index+1}}" id="hint{{$index}}">
         <p>{{hint.text}}</p>
       </zf-accordion-item>
     </zf-accordion>
+
+    <!--Locked hints-->
+    <div class="quiz-hint-locked" ng-repeat="hint in citation.hints track by $index" ng-if="!hint.unlocked">
+      <div class="grid-block" style="padding: 0; margin: 0">
+        <p>Hint {{$index+1}}</p>
+        <img zf-iconic="" icon="lock" size="small" class="iconic-color-alert">
+      </div>
+    </div>
 
     <a zf-close="hints{{$index}}" class="button quiz-modal-button">Close</a>
 
