@@ -212,6 +212,244 @@
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
               "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
             ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce04",
+            title: "Citation A",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce05",
+            title: "Citation B",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce06",
+            title: "Citation C",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce07",
+            title: "Citation D",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce08",
+            title: "Citation E",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce09",
+            title: "Citation F",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
+          },
+          {
+            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce0a",
+            title: "Citation G",
+            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
+            blocks: [
+              {
+                id: "1",
+                text: "Block1"
+              },
+              {
+                id: "2",
+                text: "Block2"
+              },
+              {
+                id: "3",
+                text: "Block3"
+              },
+              {
+                id: "4",
+                text: "Block4"
+              },
+              {
+                id: "5",
+                text: "Block5"
+              }
+            ],
+            hints: [
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
+              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
+            ]
           }
         ]
       };
