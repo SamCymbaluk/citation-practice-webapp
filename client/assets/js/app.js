@@ -542,6 +542,8 @@
               const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
+              console.log(citation.blocks.map((block) => block.text));
+
               //Alow answer to be checked
               if(citation.checks < 5){
                 $("#checkBtn"+vm.citationIndex).removeClass("disabled");
@@ -606,25 +608,34 @@
         if(sessionStorage.mlaQuizCheckConfirmation){
           checkBypass();
         }else{
-          console.log(FoundationApi);
           $("#checkModal").addClass('is-active');
         }
       }
 
-      function checkBypass(){
+      function checkBypass() {
         sessionStorage.mlaQuizCheckConfirmation = true;
         $timeout(() => {
             const citation = vm.quiz.citations[vm.citationIndex];
             const answer = answers[vm.citationIndex];
-            const blocks = $(".quiz-sortable-block");
 
-            for(let i = 0; i < blocks.length; i++){
-              if(i === answer.indexOf(blocks[i].childNodes[1].id)){
-                $(blocks[i]).addClass("correct");
-              }else{
-                $(blocks[i]).addClass("incorrect");
+            for(const [index, block] of citation.blocks.entries()) {
+              const id = block.id;
+              console.log(id);
+
+              //Apply syling to quiz block container
+              if(index === answer.indexOf(id)) {
+                $("#"+id).parent().addClass("correct");
+              } else {
+                $("#"+id).parent().addClass("incorrect");
               }
             }
+
+            //Correctly order the sortable li's again cause jquery likes to fk this up for some reason
+            const ul = $(".ui-sortable");
+            const li = ul.children("li");
+            li.detach().sort((a,b) => _findWithAttribute(citation.blocks, "id", a.childNodes[1].id) - _findWithAttribute(citation.blocks, "id", b.childNodes[1].id));
+            ul.append(li);
+
 
             citation.checks++;
 
@@ -691,6 +702,15 @@
       function _getBlock(citationId, blockId){
         const citation = quiz.citations.filter((citation) => citation.id === citationId)[0];
         return citation.blocks.filter((block) => block.id === blockId)[0];
+      }
+
+      function _findWithAttribute(array, attr, value) {
+          for(var i = 0; i < array.length; i += 1) {
+              if(array[i][attr] === value) {
+                  return i;
+              }
+          }
+          return -1;
       }
   })
     .config(config)
