@@ -479,6 +479,7 @@
 
       _setupQuiz();
       _updateCitation();
+      _setupKeyListener();
 
       /*
         Setup functions
@@ -493,7 +494,8 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index === 10) break; //10 citations maximus`
+          if(index == 5) break; //10 citations maximum
+
           vm.quiz.citations.push(quizCitations[index]);
 
           const citation = vm.quiz.citations[index];
@@ -555,6 +557,21 @@
             }
           });
           $("#sortable"+vm.citationIndex).disableSelection();
+        });
+      }
+
+      function _setupKeyListener() {
+        $(document).ready(function() {
+          $(this).on('keydown', (event) => {
+            //Down or right
+            if (event.keyCode === 39 || event.keyCode === 40) {
+              nextCitation();
+            //Up or left
+          }else if(event.keyCode === 37 || event.keyCode === 38){
+              prevCitation();
+            }
+
+          });
         });
       }
 
@@ -669,21 +686,6 @@
         }
         return true;
       }
-
-      //Listen for keypresses
-      $(document).ready(() => {
-        $(this).on('keydown', (event) => {
-
-          //Down or right
-          if (event.keyCode === 39 || event.keyCode === 40) {
-            nextCitation();
-          //Up or left
-        }else if(event.keyCode === 37 || event.keyCode === 38){
-            prevCitation();
-          }
-
-        });
-      })
 
       /*
         Util functions
