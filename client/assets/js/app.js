@@ -463,6 +463,8 @@
       //Exports
       vm.nextCitation = nextCitation;
       vm.prevCitation = prevCitation;
+      vm.addCitations = addCitations;
+      vm.citationsLeft = citationsLeft;
       vm.check = check;
       vm.checkBypass = checkBypass;
       vm.submit = submit;
@@ -476,6 +478,7 @@
       //Stores answers to quiz (not visible to vm)
       const answers = [];
 
+      const quizCitations = _clone(quiz.citations);
 
       _setupQuiz();
       _updateCitation();
@@ -488,43 +491,45 @@
         vm.quiz.citations = [];
 
         //Shuffle citation order after cloning citations from quiz
-        const quizCitations = _clone(quiz.citations);
         _shuffleArray(quizCitations);
 
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
           if(index == 5) break; //10 citations maximum
-
-          vm.quiz.citations.push(quizCitations[index]);
-
-          const citation = vm.quiz.citations[index];
-
-
-          //Setup hint arrays
-          citation.hints = quizCitations[index].hints.map((ele) => {
-            return {
-              text: ele,
-              unlocked: false
-            }
-          });
-
-          //Setup block array
-          citation.blocks = quizCitations[index].blocks.map((ele) => {
-            return {
-              text: ele.text,
-              id: ele.id
-            }
-          });
-
-          //Stores an in-order copy of the block ids
-          answers.push(_clone(citation.blocks).map((ele) => ele.id));
-
-          citation.checks = 0;
-          citation.submitted = false;
-
-          _shuffleArray(citation.blocks);
+          _addCitation(index);
         }
+      }
+
+      function _addCitation(index) {
+        vm.quiz.citations.push(quizCitations[index]);
+
+        const citation = vm.quiz.citations[index];
+
+
+        //Setup hint arrays
+        citation.hints = quizCitations[index].hints.map((ele) => {
+          return {
+            text: ele,
+            unlocked: false
+          }
+        });
+
+        //Setup block array
+        citation.blocks = quizCitations[index].blocks.map((ele) => {
+          return {
+            text: ele.text,
+            id: ele.id
+          }
+        });
+
+        //Stores an in-order copy of the block ids
+        answers.push(_clone(citation.blocks).map((ele) => ele.id));
+
+        citation.checks = 0;
+        citation.submitted = false;
+
+        _shuffleArray(citation.blocks);
       }
 
       function _setupSortable() {
@@ -544,7 +549,6 @@
               const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
-              console.log(citation.blocks.map((block) => block.text));
 
               //Alow answer to be checked
               if(citation.checks < 5){
@@ -606,7 +610,7 @@
         Public functions
       */
       function nextCitation() {
-        $timeout(function() {
+        $timeout(() => {
           if(vm.citationIndex === vm.quiz.citations.length - 1) return;
           vm.citationIndex++;
           _updateCitation();
@@ -614,11 +618,23 @@
       }
 
       function prevCitation() {
-        $timeout(function() {
+        $timeout(() => {
           if(vm.citationIndex === 0) return;
           vm.citationIndex--;
           _updateCitation();
         });
+      }
+
+      function addCitations() {
+        $timeout(() => {
+          for(let i = vm.citationIndex + 1; i < vm.citationIndex + 6; i++) {
+            _addCitation(i);
+          }
+        });
+      }
+
+      function citationsLeft() {
+        return vm.quiz.citations.length < quizCitations.length;
       }
 
       function check() {

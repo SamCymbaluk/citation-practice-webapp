@@ -70,7 +70,7 @@ controller: QuizController as vm
         <!--Quiz submit button-->
         <span ng-if="vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted()">
           <button zf-open="submitQuizModal" class="large button quiz-nav-button">Submit Quiz</button>
-          <button class="large button quiz-nav-button">Continue Practicing</button>
+          <button ng-if="vm.citationsLeft()" ng-click="vm.addCitations()" class="large button quiz-nav-button">Continue Practicing</button>
         </span>
 
       </div>
@@ -113,7 +113,7 @@ controller: QuizController as vm
 <!-- Submit quiz modal -->
 <div zf-modal="" id="submitQuizModal" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
-    
+
 
     <a zf-close="submitQuizModal" class="button quiz-modal-button">Close</a>
 
