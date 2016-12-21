@@ -113,9 +113,35 @@ controller: QuizController as vm
 <!-- Submit quiz modal -->
 <div zf-modal="" id="submitQuizModal" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
+    <h3 class="text-center">Submit Quiz</h3>
+    <br>
+    <form>
+      <label>
+        First Name
+        <input type="text" placeholder="Enter First Name">
+      </label>
+      <label>
+        Last Name
+        <input type="text" placeholder="Enter Last Name">
+      </label>
+      <label>
+        Email
+        <input type="email" placeholder="Enter your email">
+      </label>
+      <label>
+        Teacher's Email (Optional)
+        <input type="email" placeholder="Teacher's email">
+      </label>
+    </form>
 
-
-    <a zf-close="submitQuizModal" class="button quiz-modal-button">Close</a>
+    <div class="grid-block align-center">
+      <div class="grid-content shrink">
+        <a zf-close="submitQuizModal" class="button quiz-modal-button">Submit</a>
+      </div>
+      <div class="grid-content shrink">
+        <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
+      </div>
+    </div>
 
   </div>
 </div>
