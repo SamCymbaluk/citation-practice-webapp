@@ -12,448 +12,6 @@
   ])
     .controller('QuizController', function($scope, $log, $state, $timeout, $sce, FoundationApi){
 
-      //Test data from db
-      const quiz = {
-        citations: [
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce01",
-            title: "Book with one author",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "21",
-                text: "Tatenda,"
-              },
-              {
-                id: "22",
-                text: "Amadi P."
-              },
-              {
-                id: "23",
-                text: "<em>Crunking: A World History.</em> Cape Media,"
-              },
-              {
-                id: "24",
-                text: "2002."
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce02",
-            title: "Two Authors",
-            info: "Info about two authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              },
-              {
-                id: "6",
-                text: "Block6"
-              },
-              {
-                id: "7",
-                text: "Block7"
-              },
-              {
-                id: "8",
-                text: "Block8"
-              },
-              {
-                id: "9",
-                text: "Block9"
-              },
-              {
-                id: "10",
-                text: "Block10"
-              },
-              {
-                id: "11",
-                text: "Block11"
-              },
-              {
-                id: "12",
-                text: "Block12"
-              },
-              {
-                id: "13",
-                text: "Block13"
-              },
-              {
-                id: "14",
-                text: "Block14"
-              },
-              {
-                id: "15",
-                text: "Block15"
-              }
-            ],
-            hints: [
-              "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Two Authors, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce03",
-            title: "Another Citation",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              },
-              {
-                id: "6",
-                text: "Block6"
-              },
-              {
-                id: "7",
-                text: "Block7"
-              },
-              {
-                id: "8",
-                text: "Block8"
-              },
-              {
-                id: "9",
-                text: "Block9"
-              },
-              {
-                id: "10",
-                text: "Block10"
-              },
-              {
-                id: "11",
-                text: "Block11"
-              },
-              {
-                id: "12",
-                text: "Block12"
-              },
-              {
-                id: "13",
-                text: "Block13"
-              },
-              {
-                id: "14",
-                text: "Block14"
-              },
-              {
-                id: "15",
-                text: "Block15"
-              },
-              {
-                id: "16",
-                text: "Block16"
-              },
-              {
-                id: "17",
-                text: "Block17"
-              },
-              {
-                id: "18",
-                text: "Block18"
-              },
-              {
-                id: "19",
-                text: "Block19"
-              },
-              {
-                id: "20",
-                text: "Block20"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce04",
-            title: "Citation A",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce05",
-            title: "Citation B",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce06",
-            title: "Citation C",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce07",
-            title: "Citation D",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce08",
-            title: "Citation E",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce09",
-            title: "Citation F",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          },
-          {
-            id: "a195080e-bcc7-11e6-a4a6-cec0c932ce0a",
-            title: "Citation G",
-            info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at, ultricies vulputate orci. Nunc elit mauris, maximus ac pharetra sed, sollicitudin id odio. Nulla luctus vel dui sed ultrices. Phasellus in enim non nulla iaculis faucibus",
-            blocks: [
-              {
-                id: "1",
-                text: "Block1"
-              },
-              {
-                id: "2",
-                text: "Block2"
-              },
-              {
-                id: "3",
-                text: "Block3"
-              },
-              {
-                id: "4",
-                text: "Block4"
-              },
-              {
-                id: "5",
-                text: "Block5"
-              }
-            ],
-            hints: [
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at.",
-              "Hint for Single Author, consectetur adipiscing elit. Ut leo lectus, tincidunt vitae est at."
-            ]
-          }
-        ]
-      };
-
       /*
         Setup code
       */
@@ -475,14 +33,23 @@
       vm.quiz = {};
       //Stores the current active citation index
       vm.citationIndex = 0;
-      //Stores answers to quiz (not visible to vm)
-      const answers = [];
 
-      const quizCitations = _clone(quiz.citations);
+      let quiz;
+      let answers = [];
+      let quizCitations;
 
-      _setupQuiz();
-      _updateCitation();
-      _setupKeyListener();
+      //Load data from backend
+      $.ajax({
+        url: "http://localhost:3001/citations/",
+        success: (data) => {
+          quiz = data;
+          quizCitations = _clone(data);
+          _setupQuiz();
+          _updateCitation();
+          _setupKeyListener();
+        }
+      })
+
 
       /*
         Setup functions
@@ -496,7 +63,7 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index == 5) break; //10 citations maximum
+          if(index == 10) break; //10 citations maximum
           _addCitation(index);
         }
       }
@@ -518,8 +85,8 @@
         //Setup block array
         citation.blocks = quizCitations[index].blocks.map((ele) => {
           return {
-            text: ele.text,
-            id: ele.id
+            text: ele,
+            id: FoundationApi.generateUuid()
           }
         });
 
@@ -547,6 +114,8 @@
 
               //Update quiz state
               const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
+              //console.log(ids);
+              //console.log(_getBlock(citation.id,ids[0]));
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
 
@@ -653,7 +222,6 @@
 
             for(const [index, block] of citation.blocks.entries()) {
               const id = block.id;
-              console.log(id);
 
               //Apply syling to quiz block container
               if(index === answer.indexOf(id)) {
@@ -718,7 +286,7 @@
       }
 
       function _getBlock(citationId, blockId){
-        const citation = quiz.citations.filter((citation) => citation.id === citationId)[0];
+        const citation = vm.quiz.citations.filter((citation) => citation.id === citationId)[0];
         return citation.blocks.filter((block) => block.id === blockId)[0];
       }
 
