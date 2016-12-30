@@ -40,7 +40,7 @@
 
       //Load data from backend
       $.ajax({
-        url: "http://localhost:3001/citations/",
+        url: 'http://localhost:3001/citations/',
         success: (data) => {
           quiz = data;
           quizCitations = _clone(data);
@@ -48,7 +48,7 @@
           _updateCitation();
           _setupKeyListener();
         }
-      })
+      });
 
 
       /*
@@ -63,7 +63,9 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index == 10) break; //10 citations maximum
+          if(index === 10){
+            break; //10 citations maximum
+          }
           _addCitation(index);
         }
       }
@@ -79,7 +81,7 @@
           return {
             text: ele,
             unlocked: false
-          }
+          };
         });
 
         //Setup block array
@@ -87,7 +89,7 @@
           return {
             text: ele,
             id: FoundationApi.generateUuid()
-          }
+          };
         });
 
         //Stores an in-order copy of the block ids
@@ -101,19 +103,19 @@
 
       function _setupSortable() {
         //Calling timeout gives the DOM time to load
-        $timeout(function() {
-          $("#sortable"+vm.citationIndex+":visible").sortable({
+        $timeout(() => {
+          $('#sortable'+vm.citationIndex+':visible').sortable({
 
             //Sortable properties
-            tolerance: "intersect",
+            tolerance: 'intersect',
 
             //BLocks have been modified
-            stop: function(event, ui) {
+            stop: () => {
 
               const citation = vm.quiz.citations[vm.citationIndex];
 
               //Update quiz state
-              const ids = Array.from($(".quiz-sortable-block")).map((ele) => ele.childNodes[1].id);
+              const ids = Array.from($('.quiz-sortable-block')).map((ele) => ele.childNodes[1].id);
               //console.log(ids);
               //console.log(_getBlock(citation.id,ids[0]));
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
@@ -121,15 +123,15 @@
 
               //Alow answer to be checked
               if(citation.checks < 5){
-                $("#checkBtn"+vm.citationIndex).removeClass("disabled");
+                $('#checkBtn'+vm.citationIndex).removeClass('disabled');
               }
             },
-            start: function() {
-              $(".quiz-sortable-block").removeClass("correct");
-              $(".quiz-sortable-block").removeClass("incorrect");
+            start: () => {
+              $('.quiz-sortable-block').removeClass('correct');
+              $('.quiz-sortable-block').removeClass('incorrect');
             }
           });
-          $("#sortable"+vm.citationIndex).disableSelection();
+          $('#sortable'+vm.citationIndex).disableSelection();
         });
       }
 
@@ -148,27 +150,21 @@
         });
       }
 
-      function _setupTooltips() {
-        $timeout(() => {
-          $('[data-toggle="tooltip"]').tooltip();
-        });
-      }
-
       function _updateCitation(){
         const citation = vm.quiz.citations[vm.citationIndex];
         _setupSortable();
 
         $timeout(() => {
           if(citation.submitted){
-            $(".quiz-sortable-block").addClass("submitted");
-            $("#sortable"+vm.citationIndex).sortable("disable");
+            $('.quiz-sortable-block').addClass('submitted');
+            $('#sortable'+vm.citationIndex).sortable('disable');
 
-            $(".quiz-sortable-block").removeClass("correct");
-            $(".quiz-sortable-block").removeClass("incorrect");
+            $('.quiz-sortable-block').removeClass('correct');
+            $('.quiz-sortable-block').removeClass('incorrect');
 
-            $("#submitBtn"+vm.citationIndex).addClass("disabled");
-            $("#checkBtn"+vm.citationIndex).addClass("disabled");
-            $("#hintsBtn"+vm.citationIndex).addClass("disabled");
+            $('#submitBtn'+vm.citationIndex).addClass('disabled');
+            $('#checkBtn'+vm.citationIndex).addClass('disabled');
+            $('#hintsBtn'+vm.citationIndex).addClass('disabled');
           }
         });
       }
@@ -180,7 +176,9 @@
       */
       function nextCitation() {
         $timeout(() => {
-          if(vm.citationIndex === vm.quiz.citations.length - 1) return;
+          if(vm.citationIndex === vm.quiz.citations.length - 1) {
+            return;
+          }
           vm.citationIndex++;
           _updateCitation();
         });
@@ -188,7 +186,9 @@
 
       function prevCitation() {
         $timeout(() => {
-          if(vm.citationIndex === 0) return;
+          if(vm.citationIndex === 0){
+            return;
+          }
           vm.citationIndex--;
           _updateCitation();
         });
@@ -210,7 +210,7 @@
         if(sessionStorage.mlaQuizCheckConfirmation){
           checkBypass();
         }else{
-          $("#checkModal").addClass('is-active');
+          $('#checkModal').addClass('is-active');
         }
       }
 
@@ -225,16 +225,16 @@
 
               //Apply syling to quiz block container
               if(index === answer.indexOf(id)) {
-                $("#"+id).parent().addClass("correct");
+                $('#'+id).parent().addClass('correct');
               } else {
-                $("#"+id).parent().addClass("incorrect");
+                $('#'+id).parent().addClass('incorrect');
               }
             }
 
             //Correctly order the sortable li's again cause jquery likes to fk this up for some reason
-            const ul = $(".ui-sortable");
-            const li = ul.children("li");
-            li.detach().sort((a,b) => _findWithAttribute(citation.blocks, "id", a.childNodes[1].id) - _findWithAttribute(citation.blocks, "id", b.childNodes[1].id));
+            const ul = $('.ui-sortable');
+            const li = ul.children('li');
+            li.detach().sort((a,b) => _findWithAttribute(citation.blocks, 'id', a.childNodes[1].id) - _findWithAttribute(citation.blocks, 'id', b.childNodes[1].id));
             ul.append(li);
 
 
@@ -248,7 +248,7 @@
               }
             }
 
-            $("#checkBtn"+vm.citationIndex).addClass("disabled");
+            $('#checkBtn'+vm.citationIndex).addClass('disabled');
 
         });
       }
@@ -266,7 +266,9 @@
 
       function everythingSubmitted(){
         for(const citation of vm.quiz.citations){
-          if(!citation.submitted) return false;
+          if(!citation.submitted){
+            return false;
+          }
         }
         return true;
       }

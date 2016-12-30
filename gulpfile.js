@@ -180,3 +180,10 @@ gulp.task('default', ['server'], function () {
   // Watch app templates
   gulp.watch(['./client/templates/**/*.html'], ['copy:templates']);
 });
+
+gulp.task('lint', function() {
+    return gulp.src( paths.appJS )
+        .pipe($.jshint())
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe($.jshint.reporter('fail'));
+});
