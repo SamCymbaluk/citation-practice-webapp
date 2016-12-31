@@ -92,6 +92,8 @@
           };
         });
 
+        citation.intext_answers = quizCitations[index].intext_answers;
+
         //Stores an in-order copy of the block ids
         answers.push(_clone(citation.blocks).map((ele) => ele.id));
 
@@ -162,6 +164,8 @@
             $('.quiz-sortable-block').removeClass('correct');
             $('.quiz-sortable-block').removeClass('incorrect');
 
+            $('#intext').attr('disabled', true);
+
             $('#submitBtn'+vm.citationIndex).addClass('disabled');
             $('#checkBtn'+vm.citationIndex).addClass('disabled');
             $('#hintsBtn'+vm.citationIndex).addClass('disabled');
@@ -220,6 +224,7 @@
             const citation = vm.quiz.citations[vm.citationIndex];
             const answer = answers[vm.citationIndex];
 
+            //Check blocks
             for(const [index, block] of citation.blocks.entries()) {
               const id = block.id;
 
@@ -236,6 +241,16 @@
             const li = ul.children('li');
             li.detach().sort((a,b) => _findWithAttribute(citation.blocks, 'id', a.childNodes[1].id) - _findWithAttribute(citation.blocks, 'id', b.childNodes[1].id));
             ul.append(li);
+
+
+            //Check intext citation
+            const intext = $('#intext');
+            console.log(intext.val());
+            if(citation.intext_answers.includes(intext.val())) {
+              intext.addClass('correct');
+            } else {
+              intext.addClass('incorrect');
+            }
 
 
             citation.checks++;
@@ -264,6 +279,15 @@
         _updateCitation();
       }
 
+      function calculateScore() {
+        const citation = vm.quiz.citations[vm.citationIndex];
+        if(citation.submitted){
+          let score = 100;
+          score = score - (_unlockedHints(citation) * 10); //10% off for each check
+
+        }
+      }
+
       function everythingSubmitted(){
         for(const citation of vm.quiz.citations){
           if(!citation.submitted){
@@ -281,6 +305,16 @@
             let j = Math.floor(Math.random() * i);
             [a[i - 1], a[j]] = [a[j], a[i - 1]];
         }
+      }
+
+      function _unlockedHints(citation){
+        let unlocked = 0;
+        for(hint in citation.hints){
+          if(hint.unlocked){
+            unlocked++;
+          }
+        }
+        return unlocked;
       }
 
       function _clone(obj){

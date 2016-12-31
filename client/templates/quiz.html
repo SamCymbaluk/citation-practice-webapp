@@ -13,9 +13,8 @@ controller: QuizController as vm
     <div class="quiz-panel">
       <!-- Citation content -->
       <div class="quiz-content-container">
-        <h3 class="text-center">{{citation.title}}</h3>
+        <h2 class="text-center">{{citation.title}}</h2>
         <hr>
-        <p class="text-center quiz-text">{{citation.info}}</p>
         <h4 class="text-center">Works Cited Reference</h4>
 
         <div class="quiz-sortable-container">
@@ -26,16 +25,16 @@ controller: QuizController as vm
           </ul>
         </div>
 
-        <!--
-        <h4 class="text-center" style="padding-top: 20px">In-Text Citation</h4>
+        <!--<h4 class="text-center" style="padding-top: 20px">In-Text Citation</h4>-->
+        <p class="text-center quiz-text">{{citation.intext_info}}</p>
         <label>
           <span class="inline-label" style="margin: auto; width:20%; min-width:200px">
             <span class="form-label">(</span>
-            <input type="text">
+            <input type="text" id="intext">
             <span class="form-label">).</span>
           </span>
         </label>
-        -->
+
 
         <!-- Buttons -->
         <div class="grid-block horizontal align-spaced" style="padding-top: 20px">

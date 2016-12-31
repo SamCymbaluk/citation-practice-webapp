@@ -11,7 +11,7 @@
 
 .quiz-panel {
   display: flex;
-
+  width: 100%;
   margin: 0px;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -98,6 +98,16 @@
 .quiz-sortable-block.incorrect {
   border: 1px solid $fail-color;
   box-shadow: 0px 1px 5px $fail-color;
+}
+
+input.correct {
+  border: 1px solid $success-color;
+  box-shadow: inset 0px 1px 5px $success-color;
+}
+
+input.incorrect {
+  border: 1px solid $fail-color;
+  box-shadow: inset 0px 1px 5px $fail-color;
 }
 
 .quiz-sortable-block.submitted {
