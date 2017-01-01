@@ -131,6 +131,9 @@
             start: () => {
               $('.quiz-sortable-block').removeClass('correct');
               $('.quiz-sortable-block').removeClass('incorrect');
+
+              $('#intext').removeClass('correct');
+              $('#intext').removeClass('incorrect');
             }
           });
           $('#sortable'+vm.citationIndex).disableSelection();
@@ -181,6 +184,12 @@
       function nextCitation() {
         $timeout(() => {
           if(vm.citationIndex === vm.quiz.citations.length - 1) {
+            return;
+          }
+          //Citation must be submitted before allowing forward navigation
+          if(!vm.quiz.citations[vm.citationIndex].submitted){
+            $('#submitBtn'+vm.citationIndex).addClass('highlight', 1000);
+            $timeout(() => $('#submitBtn'+vm.citationIndex).removeClass('highlight', 1000), 1000);
             return;
           }
           vm.citationIndex++;
@@ -245,7 +254,6 @@
 
             //Check intext citation
             const intext = $('#intext');
-            console.log(intext.val());
             if(citation.intext_answers.includes(intext.val())) {
               intext.addClass('correct');
             } else {
