@@ -124,7 +124,7 @@
 
 
               //Alow answer to be checked
-              if(citation.checks < 5){
+              if(citation.checks < citation.hints.length){
                 $('#checkBtn'+vm.citationIndex).removeClass('disabled');
               }
             },
@@ -283,18 +283,11 @@
       function submit() {
         const citation = vm.quiz.citations[vm.citationIndex];
         citation.submitted = true;
+        _calculateScore();
 
         _updateCitation();
       }
 
-      function calculateScore() {
-        const citation = vm.quiz.citations[vm.citationIndex];
-        if(citation.submitted){
-          let score = 100;
-          score = score - (_unlockedHints(citation) * 10); //10% off for each check
-
-        }
-      }
 
       function everythingSubmitted(){
         for(const citation of vm.quiz.citations){
@@ -308,6 +301,49 @@
       /*
         Util functions
       */
+      function _calculateScore() {
+        const citation = vm.quiz.citations[vm.citationIndex];
+        const answer = answers[vm.citationIndex];
+        const citationPercent = 80;
+        const intextPercent = 100 - citationPercent;
+        let score = 0, correct = 0;
+
+        //Calculate citation score
+        for(const [index, block] of citation.blocks.entries()) {
+          const id = block.id;
+          if(index === answer.indexOf(id)) {
+            correct++;
+          }
+        }
+
+        score = (correct/citation.blocks.length) * citationPercent;
+
+        //Check intext citation
+        const intext = $('#intext');
+        score = citation.intext_answers.includes(intext.val()) ? score + intextPercent : score;
+
+        //10% off for each check
+        score = score - (_unlockedHints(citation) * 10);
+
+
+        //We don't want negative scores as a result of checking
+        if(score < 0) {
+          score = 0;
+        }
+
+        citation.score = Math.round(score);
+
+        let color = '#ff6060';
+        if(score >= 75) {
+          color = '#43AC6A';
+        } else if(score >= 50) {
+          color = '#F08A24';
+        }
+
+        citation.score_color = color;
+
+      }
+
       function _shuffleArray(a) {
         for (let i = a.length; i; i--) {
             let j = Math.floor(Math.random() * i);
@@ -317,7 +353,7 @@
 
       function _unlockedHints(citation){
         let unlocked = 0;
-        for(hint in citation.hints){
+        for(const hint of citation.hints){
           if(hint.unlocked){
             unlocked++;
           }

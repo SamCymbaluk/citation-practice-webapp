@@ -154,12 +154,34 @@ controller: QuizController as vm
     </div>
     <div class="grid-block align-center">
       <div class="grid-content shrink">
-        <a zf-close="submitModal" ng-click="vm.submit()" class="button quiz-modal-button">Submit</a>
+        <a zf-close="submitModal" ng-click="vm.submit()" zf-open="finalModal" class="button quiz-modal-button">Submit</a>
       </div>
       <div class="grid-content shrink">
         <a zf-close="submitModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Final citation modal -->
+<div zf-modal="" id="finalModal" animation-in="slideInUp" animation-out="slideOutUp">
+  <div class="grid-block vertical">
+    <h3 class="text-center">Score</h3>
+    <!-- Score progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar" style="width:{{vm.quiz.citations[vm.citationIndex].score}}%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
+        <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+      </div>
+    </div>
+    <br>
+    <p>{{vm.quiz.citations[vm.citationIndex].end_text}}</p>
+
+    <div class="grid-block align-center">
+      <div class="grid-content shrink">
+        <a zf-close="finalModal" ng-click="vm.nextCitation()" class="button quiz-modal-button">Continue</a>
+      </div>
+    </div>
+
   </div>
 </div>
 
