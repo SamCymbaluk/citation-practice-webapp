@@ -26,6 +26,7 @@
       vm.check = check;
       vm.checkBypass = checkBypass;
       vm.submit = submit;
+      vm.submitQuiz = submitQuiz;
       vm.renderHtml = renderHtml;
       vm.everythingSubmitted = everythingSubmitted;
 
@@ -40,13 +41,11 @@
 
       //Load data from backend
       $.ajax({
-        url: 'http://localhost:3001/citations/',
+        url: 'http://localhost:3001/mla/citations/',
         success: (data) => {
           quiz = data;
           quizCitations = _clone(data);
           _setupQuiz();
-          _updateCitation();
-          _setupKeyListener();
         }
       });
 
@@ -63,14 +62,20 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index === 10){
+          if(index == 1){
             break; //10 citations maximum
           }
           _addCitation(index);
         }
+        _updateCitation();
+        _setupKeyListener();
       }
 
       function _addCitation(index) {
+        if(index >= quizCitations.length){
+          return;
+        }
+
         vm.quiz.citations.push(quizCitations[index]);
 
         const citation = vm.quiz.citations[index];
@@ -188,6 +193,7 @@
           }
           //Citation must be submitted before allowing forward navigation
           if(!vm.quiz.citations[vm.citationIndex].submitted){
+            //Highlight the submission button to indicate to user that they must submit before continuing
             $('#submitBtn'+vm.citationIndex).addClass('highlight', 1000);
             $timeout(() => $('#submitBtn'+vm.citationIndex).removeClass('highlight', 1000), 1000);
             return;
@@ -209,7 +215,7 @@
 
       function addCitations() {
         $timeout(() => {
-          for(let i = vm.citationIndex + 1; i < vm.citationIndex + 6; i++) {
+          for(let i = vm.citationIndex + 1; i < vm.citationIndex + 11; i++) {
             _addCitation(i);
           }
         });
@@ -298,6 +304,14 @@
         return true;
       }
 
+      function submitQuiz() {
+        //Read data from form
+        const name_first = $('#quizsubmit-name_first').val();
+        const name_last = $('#quizsubmit-name_last').val();
+        const email = $('#quizsubmit-email').val();
+        const teacher_emails = _parseEmails($('#quizsubmit-teacher_emails').val());
+      }
+
       /*
         Util functions
       */
@@ -342,6 +356,24 @@
 
         citation.score_color = color;
 
+      }
+
+      function _calculateQuizScore() {
+        const citations = vm.quiz.citations;
+        let score = 0;
+
+        for(const citation of citations) {
+          score += citation.score;
+        }
+
+        return (score / citations.length);
+      }
+
+      function _parseEmails(emailStr) {
+        const emails = emailStr.split(",");
+        emails.map((email) => email.trim());
+
+        return emails;
       }
 
       function _shuffleArray(a) {

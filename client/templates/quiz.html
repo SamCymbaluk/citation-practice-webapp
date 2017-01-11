@@ -114,33 +114,33 @@ controller: QuizController as vm
   <div class="grid-block vertical">
     <h3 class="text-center">Submit Quiz</h3>
     <br>
-    <form>
+    <form id="submitQuizForm" ng-submit="vm.submitQuiz()">
       <label>
         First Name
-        <input type="text" placeholder="Enter First Name">
+        <input type="text" id="quizsubmit-name_first" placeholder="Enter First Name" required>
       </label>
       <label>
         Last Name
-        <input type="text" placeholder="Enter Last Name">
+        <input type="text" id="quizsubmit-name_last" placeholder="Enter Last Name" required>
       </label>
       <label>
         Email
-        <input type="email" placeholder="Enter your email">
+        <input type="email" id="quizsubmit-email" placeholder="Enter your email" required>
       </label>
       <label>
-        Teacher's Email (Optional)
-        <input type="email" placeholder="Teacher's email">
+        Teacher Email(s) (Seperated by commas)
+        <input type="email" id="quizsubmit-teacher_emails" placeholder="Enter email(s)" multiple>
       </label>
-    </form>
 
-    <div class="grid-block align-center">
-      <div class="grid-content shrink">
-        <a zf-close="submitQuizModal" class="button quiz-modal-button">Submit</a>
+      <div class="grid-block align-center">
+        <div class="grid-content shrink">
+          <input type="submit" class="button quiz-modal-button" value="Submit">
+        </div>
+        <div class="grid-content shrink">
+          <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
+        </div>
       </div>
-      <div class="grid-content shrink">
-        <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
-      </div>
-    </div>
+    </form>
 
   </div>
 </div>
@@ -167,12 +167,20 @@ controller: QuizController as vm
 <div zf-modal="" id="finalModal" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
     <h3 class="text-center">Score</h3>
+
     <!-- Score progress bar -->
-    <div class="progress-container">
+    <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score > 0">
       <div class="progress-bar" style="width:{{vm.quiz.citations[vm.citationIndex].score}}%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
         <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
       </div>
     </div>
+    <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score === 0">
+      <div class="progress-bar" style="width:100%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
+        <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+      </div>
+    </div>
+
+
     <br>
     <p>{{vm.quiz.citations[vm.citationIndex].end_text}}</p>
 
