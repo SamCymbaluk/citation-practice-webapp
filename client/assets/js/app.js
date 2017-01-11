@@ -310,6 +310,24 @@
         const name_last = $('#quizsubmit-name_last').val();
         const email = $('#quizsubmit-email').val();
         const teacher_emails = _parseEmails($('#quizsubmit-teacher_emails').val());
+
+        const score = _calculateQuizScore();
+
+        const quizData = {
+          name_first,
+          name_last,
+          email,
+          score
+        };
+
+        $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3001/mla/results',
+        data: quizData,
+        success: () => {
+          console.log('Submission success');
+        },
+      });
       }
 
       /*
