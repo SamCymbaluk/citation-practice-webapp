@@ -62,7 +62,7 @@ controller: QuizController as vm
       <div class="grid-block align-spaced">
 
         <!--Progress bar-->
-        <div class="grid-content" ng-if="!(vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted())">
+        <div class="grid-content" ng-if="!(vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted() && !vm.quiz.submitted)">
           <progress style="margin-top: 15px; margin-bottom: 1px;" value="{{vm.citationIndex + 1}}" max="{{vm.quiz.citations.length}}"></progress>
           <p class="text-center" style="color: #686868; margin-bottom: 1px">{{vm.citationIndex + 1}}/{{vm.quiz.citations.length}}</p>
         </div>
@@ -134,7 +134,7 @@ controller: QuizController as vm
 
       <div class="grid-block align-center">
         <div class="grid-content shrink">
-          <input type="submit" class="button quiz-modal-button" value="Submit">
+          <input type="submit" zf-close="submitQuizModal" class="button quiz-modal-button" value="Submit">
         </div>
         <div class="grid-content shrink">
           <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
@@ -210,3 +210,5 @@ controller: QuizController as vm
     </div>
   </div>
 </div>
+
+<zf-notification-set id="submit-notification" position="top-right" class="fail"></zf-notification-set>

@@ -260,7 +260,7 @@
 
             //Check intext citation
             const intext = $('#intext');
-            if(citation.intext_answers.includes(intext.val())) {
+            if(citation.intext_answers.includes(intext.val().split('"').join('&quot;'))) {
               intext.addClass('correct');
             } else {
               intext.addClass('incorrect');
@@ -305,6 +305,7 @@
       }
 
       function submitQuiz() {
+
         //Read data from form
         const name_first = $('#quizsubmit-name_first').val();
         const name_last = $('#quizsubmit-name_last').val();
@@ -324,9 +325,16 @@
         type: 'POST',
         url: 'http://localhost:3001/mla/results',
         data: quizData,
-        success: () => {
-          console.log('Submission success');
+        success: (data, status, xhr) => {
+          vm.quiz.submitted = true;
         },
+        error: (xhr, status, error) => {
+          _sendNotification({
+            title: 'Submission failed',
+            content: 'Please try again',
+            autoclose: 5000,
+          });
+        }
       });
       }
 
@@ -352,7 +360,10 @@
 
         //Check intext citation
         const intext = $('#intext');
-        score = citation.intext_answers.includes(intext.val()) ? score + intextPercent : score;
+        score = citation.intext_answers.includes(intext.val().split('"').join('&quot;')) ? score + intextPercent : score;
+
+        console.log((intext.val().split('"').join('&quot;')));
+        console.log(citation.intext_answers);
 
         //10% off for each check
         score = score - (_unlockedHints(citation) * 10);
@@ -392,6 +403,10 @@
         emails.map((email) => email.trim());
 
         return emails;
+      }
+
+      function _sendNotification(data) {
+        FoundationApi.publish('submit-notification', data);
       }
 
       function _shuffleArray(a) {
