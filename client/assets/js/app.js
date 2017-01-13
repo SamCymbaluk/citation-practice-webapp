@@ -323,7 +323,7 @@
         vm.quiz.results = {
           score,
           color: _calculateColor(score)
-        }
+        };
 
         $.ajax({
           type: 'POST',
@@ -346,7 +346,7 @@
       }
 
       function navigateToLesson() {
-        $location.path('/')
+        $location.path('/');
       }
 
       /*
