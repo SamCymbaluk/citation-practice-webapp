@@ -25,7 +25,6 @@ controller: QuizController as vm
           </ul>
         </div>
 
-        <!--<h4 class="text-center" style="padding-top: 20px">In-Text Citation</h4>-->
         <p class="text-center quiz-text">{{citation.intext_info}}</p>
         <label>
           <span class="inline-label" style="margin: auto; width:20%; min-width:200px">
@@ -62,7 +61,7 @@ controller: QuizController as vm
       <div class="grid-block align-spaced">
 
         <!--Progress bar-->
-        <div class="grid-content" ng-if="!(vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted() && !vm.quiz.submitted)">
+        <div class="grid-content" ng-if="!(vm.citationIndex + 1 === vm.quiz.citations.length && vm.everythingSubmitted())">
           <progress style="margin-top: 15px; margin-bottom: 1px;" value="{{vm.citationIndex + 1}}" max="{{vm.quiz.citations.length}}"></progress>
           <p class="text-center" style="color: #686868; margin-bottom: 1px">{{vm.citationIndex + 1}}/{{vm.quiz.citations.length}}</p>
         </div>
@@ -112,35 +111,64 @@ controller: QuizController as vm
 <!-- Submit quiz modal -->
 <div zf-modal="" id="submitQuizModal" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
-    <h3 class="text-center">Submit Quiz</h3>
-    <br>
-    <form id="submitQuizForm" ng-submit="vm.submitQuiz()">
-      <label>
-        First Name
-        <input type="text" id="quizsubmit-name_first" placeholder="Enter First Name" required>
-      </label>
-      <label>
-        Last Name
-        <input type="text" id="quizsubmit-name_last" placeholder="Enter Last Name" required>
-      </label>
-      <label>
-        Email
-        <input type="email" id="quizsubmit-email" placeholder="Enter your email" required>
-      </label>
-      <label>
-        Teacher Email(s) (Seperated by commas)
-        <input type="email" id="quizsubmit-teacher_emails" placeholder="Enter email(s)" multiple>
-      </label>
+
+    <!-- Quiz submission form -->
+    <span ng-show="!vm.quiz.submitted">
+      <h3 class="text-center">Submit Quiz</h3>
+      <br>
+      <form id="submitQuizForm" ng-submit="vm.submitQuiz()">
+        <label>
+          First Name
+          <input type="text" id="quizsubmit-name_first" placeholder="Enter First Name" required>
+        </label>
+        <label>
+          Last Name
+          <input type="text" id="quizsubmit-name_last" placeholder="Enter Last Name" required>
+        </label>
+        <label>
+          Email
+          <input type="email" id="quizsubmit-email" placeholder="Enter your email" required>
+        </label>
+        <label>
+          Teacher Email(s) (Seperated by commas)
+          <input type="email" id="quizsubmit-teacher_emails" placeholder="Enter email(s)" multiple>
+        </label>
+
+        <div class="grid-block align-center">
+          <div class="grid-content shrink">
+            <input type="submit" class="button quiz-modal-button" value="Submit">
+          </div>
+          <div class="grid-content shrink">
+            <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </span>
+
+    <!-- Quiz results -->
+    <span ng-show="vm.quiz.submitted">
+      <h3 class="text-center">Quiz Submitted</h3>
+      <p class="text-center quiz-text">An email with your results has been sent to you and your teachers.</p>
+      <br>
+      <h4 class="text-center">Final Score</h4>
+      <!-- Score progress bar -->
+      <div class="progress-container" ng-if="vm.quiz.results.score > 0">
+        <div class="progress-bar" style="width:{{vm.quiz.results.score}}%; background-color:{{vm.quiz.results.color}}">
+          <div class="progress-label">{{vm.quiz.results.score}}%</div>
+        </div>
+      </div>
+      <div class="progress-container" ng-if="vm.quiz.results.score === 0">
+        <div class="progress-bar" style="width:100%; background-color:{{vm.quiz.results.color}}">
+          <div class="progress-label">{{vm.quiz.results.score}}%</div>
+        </div>
+      </div>
 
       <div class="grid-block align-center">
         <div class="grid-content shrink">
-          <input type="submit" zf-close="submitQuizModal" class="button quiz-modal-button" value="Submit">
-        </div>
-        <div class="grid-content shrink">
-          <a zf-close="submitQuizModal" class="button quiz-modal-button" style="background-color: #F04124">Cancel</a>
+          <a ng-click="vm.navigateToLesson()" class="button quiz-modal-button" style="background-color: #F04124">Close</a>
         </div>
       </div>
-    </form>
+    </span>
 
   </div>
 </div>

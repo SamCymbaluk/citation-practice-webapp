@@ -10,7 +10,7 @@
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])
-    .controller('QuizController', function($scope, $log, $state, $timeout, $sce, FoundationApi){
+    .controller('QuizController', function($scope, $log, $state, $timeout, $sce, $location, FoundationApi){
 
       /*
         Setup code
@@ -29,6 +29,7 @@
       vm.submitQuiz = submitQuiz;
       vm.renderHtml = renderHtml;
       vm.everythingSubmitted = everythingSubmitted;
+      vm.navigateToLesson = navigateToLesson;
 
       //Quiz state object
       vm.quiz = {};
@@ -55,6 +56,7 @@
       */
       function _setupQuiz() {
         vm.quiz.citations = [];
+        vm.quiz.submitted = false;
 
         //Shuffle citation order after cloning citations from quiz
         _shuffleArray(quizCitations);
@@ -62,7 +64,7 @@
 
         //Populate citation array with citation objects
         for(const index in quizCitations) {
-          if(index == 1){
+          if(index == 10){
             break; //10 citations maximum
           }
           _addCitation(index);
@@ -118,7 +120,6 @@
 
             //BLocks have been modified
             stop: () => {
-
               const citation = vm.quiz.citations[vm.citationIndex];
 
               //Update quiz state
@@ -319,21 +320,33 @@
           score
         };
 
-        $.ajax({
-        type: 'POST',
-        url: 'http://localhost:3001/mla/results',
-        data: quizData,
-        success: (data, status, xhr) => {
-          vm.quiz.submitted = true;
-        },
-        error: (xhr, status, error) => {
-          _sendNotification({
-            title: 'Submission failed',
-            content: 'Please try again',
-            autoclose: 5000,
-          });
+        vm.quiz.results = {
+          score,
+          color: _calculateColor(score)
         }
-      });
+
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:3001/mla/results',
+          data: quizData,
+          success: (data, status, xhr) => {
+            //Timeout updates ng-show/if
+            $timeout(() => {
+              vm.quiz.submitted = true;
+            });
+          },
+          error: (xhr, status, error) => {
+            _sendNotification({
+              title: 'Submission failed',
+              content: 'Please try again',
+              autoclose: 5000,
+            });
+          }
+        });
+      }
+
+      function navigateToLesson() {
+        $location.path('/')
       }
 
       /*
@@ -371,15 +384,7 @@
         }
 
         citation.score = Math.round(score);
-
-        let color = '#ff6060';
-        if(score >= 75) {
-          color = '#43AC6A';
-        } else if(score >= 50) {
-          color = '#F08A24';
-        }
-
-        citation.score_color = color;
+        citation.score_color = _calculateColor(score);
 
       }
 
@@ -403,6 +408,16 @@
 
       function _sendNotification(data) {
         FoundationApi.publish('submit-notification', data);
+      }
+
+      function _calculateColor(score) {
+        let color = '#ff6060';
+        if(score >= 75) {
+          color = '#43AC6A';
+        } else if(score >= 50) {
+          color = '#F08A24';
+        }
+        return color;
       }
 
       function _shuffleArray(a) {
