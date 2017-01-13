@@ -123,8 +123,6 @@
 
               //Update quiz state
               const ids = Array.from($('.quiz-sortable-block')).map((ele) => ele.childNodes[1].id);
-              //console.log(ids);
-              //console.log(_getBlock(citation.id,ids[0]));
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
 
@@ -362,8 +360,6 @@
         const intext = $('#intext');
         score = citation.intext_answers.includes(intext.val().split('"').join('&quot;')) ? score + intextPercent : score;
 
-        console.log((intext.val().split('"').join('&quot;')));
-        console.log(citation.intext_answers);
 
         //10% off for each check
         score = score - (_unlockedHints(citation) * 10);
