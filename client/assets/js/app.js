@@ -317,7 +317,7 @@
           name_first,
           name_last,
           email,
-          score
+          score: Math.round(score);
         };
 
         vm.quiz.results = {
