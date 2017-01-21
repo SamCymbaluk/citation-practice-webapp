@@ -63,14 +63,16 @@
 
 
         //Populate citation array with citation objects
-        for(const index in quizCitations) {
-          if(index == 10){
-            break; //10 citations maximum
+        $timeout(() => {
+          for(const index in quizCitations) {
+            if(index == 10){
+              break; //10 citations maximum
+            }
+            _addCitation(index);
           }
-          _addCitation(index);
-        }
-        _updateCitation();
-        _setupKeyListener();
+          _updateCitation();
+          _setupKeyListener();
+        });
       }
 
       function _addCitation(index) {
@@ -113,6 +115,7 @@
       function _setupSortable() {
         //Calling timeout gives the DOM time to load
         $timeout(() => {
+          console.log($('#sortable'+vm.citationIndex+':visible').length);
           $('#sortable'+vm.citationIndex+':visible').sortable({
 
             //Sortable properties
