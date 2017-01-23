@@ -314,13 +314,14 @@
         const email = $('#quizsubmit-email').val();
         const teacher_emails = _parseEmails($('#quizsubmit-teacher_emails').val());
 
-        const score = _calculateQuizScore();
+        const score = Math.round(_calculateQuizScore());
 
         const quizData = {
           name_first,
           name_last,
           email,
-          score: Math.round(score)
+          teacher_emails,
+          score
         };
 
         vm.quiz.results = {
