@@ -65,7 +65,7 @@
         //Populate citation array with citation objects
         $timeout(() => {
           for(const index in quizCitations) {
-            if(index == 10){
+            if(index == 10) {
               break; //10 citations maximum
             }
             _addCitation(index);
@@ -76,7 +76,7 @@
       }
 
       function _addCitation(index) {
-        if(index >= quizCitations.length){
+        if(index >= quizCitations.length) {
           return;
         }
 
@@ -125,13 +125,16 @@
             stop: () => {
               const citation = vm.quiz.citations[vm.citationIndex];
 
+              const debug = Array.from($('.quiz-sortable-block')).map((ele) => ele.innerText);
+              console.log(debug);
+
               //Update quiz state
               const ids = Array.from($('.quiz-sortable-block')).map((ele) => ele.childNodes[1].id);
               citation.blocks = ids.map((id) => _getBlock(citation.id, id));
 
 
               //Alow answer to be checked
-              if(citation.checks < citation.hints.length){
+              if(citation.checks < citation.hints.length) {
                 $('#checkBtn'+vm.citationIndex).removeClass('disabled');
               }
             },
@@ -154,20 +157,19 @@
             if (event.keyCode === 39 || event.keyCode === 40) {
               nextCitation();
             //Up or left
-          }else if(event.keyCode === 37 || event.keyCode === 38){
+            } else if(event.keyCode === 37 || event.keyCode === 38) {
               prevCitation();
             }
-
           });
         });
       }
 
-      function _updateCitation(){
+      function _updateCitation() {
         const citation = vm.quiz.citations[vm.citationIndex];
         _setupSortable();
 
         $timeout(() => {
-          if(citation.submitted){
+          if(citation.submitted) {
             $('.quiz-sortable-block').addClass('submitted');
             $('#sortable'+vm.citationIndex).sortable('disable');
 
@@ -194,7 +196,7 @@
             return;
           }
           //Citation must be submitted before allowing forward navigation
-          if(!vm.quiz.citations[vm.citationIndex].submitted){
+          if(!vm.quiz.citations[vm.citationIndex].submitted) {
             //Highlight the submission button to indicate to user that they must submit before continuing
             $('#submitBtn'+vm.citationIndex).addClass('highlight', 1000);
             $timeout(() => $('#submitBtn'+vm.citationIndex).removeClass('highlight', 1000), 1000);
@@ -207,7 +209,7 @@
 
       function prevCitation() {
         $timeout(() => {
-          if(vm.citationIndex === 0){
+          if(vm.citationIndex === 0) {
             return;
           }
           vm.citationIndex--;
@@ -228,9 +230,9 @@
       }
 
       function check() {
-        if(sessionStorage.mlaQuizCheckConfirmation){
+        if(sessionStorage.mlaQuizCheckConfirmation) {
           checkBypass();
-        }else{
+        } else {
           $('#checkModal').addClass('is-active');
         }
       }
@@ -272,8 +274,8 @@
             citation.checks++;
 
             //Unlock first locked hint
-            for(const hint of citation.hints){
-              if(!hint.unlocked){
+            for(const hint of citation.hints) {
+              if(!hint.unlocked) {
                 hint.unlocked = true;
                 break;
               }
@@ -297,9 +299,9 @@
       }
 
 
-      function everythingSubmitted(){
-        for(const citation of vm.quiz.citations){
-          if(!citation.submitted){
+      function everythingSubmitted() {
+        for(const citation of vm.quiz.citations) {
+          if(!citation.submitted) {
             return false;
           }
         }
@@ -366,6 +368,7 @@
         //Calculate citation score
         for(const [index, block] of citation.blocks.entries()) {
           const id = block.id;
+          console.warn(block);
           if(index === answer.indexOf(id)) {
             correct++;
           }
