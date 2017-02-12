@@ -23,7 +23,7 @@ var paths = {
     './client/**/*.*',
     '!./client/templates/**/*.*',
     '!./client/assets/{scss,js}/**/*.*',
-    'client/assets/js/controllers/QuizController.js'
+    'client/assets/js/controllers/*.*'
   ],
   // Sass will check these folders for files when you use @import.
   sass: [
