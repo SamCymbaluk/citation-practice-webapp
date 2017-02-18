@@ -34,7 +34,7 @@
 
     //Load data from backend
     $.ajax({
-      url: 'http://cathedralgaels.ca:3001/mla/citations/',
+      url: 'http://cathedralgaels.ca:3001/mla/citations',
       success: (data) => {
         quiz = data;
         quizCitations = _clone(data);
