@@ -38,8 +38,8 @@ controller: QuizController as vm
         <!-- Buttons -->
         <div class="grid-block horizontal align-spaced" style="padding-top: 20px">
 
-          <button zf-open="hints{{$index}}" class="large button success quiz-button" id="hintsBtn{{$index}}">Hints</button>
-          <button zf-open="submitModal" class="large button quiz-button" id="submitBtn{{$index}}">Submit</button>
+          <button ng-click="vm.refreshBlocks()" zf-open="hints{{$index}}" class="large button success quiz-button" id="hintsBtn{{$index}}">Hints</button>
+          <button ng-click="vm.refreshBlocks()" zf-open="submitModal" class="large button quiz-button" id="submitBtn{{$index}}">Submit</button>
 
           <button class="large button warning quiz-button" id="checkBtn{{$index}}" ng-click="vm.check()">Check</button>
         </div>
@@ -222,7 +222,7 @@ controller: QuizController as vm
 </div>
 
 <!-- Check confirmation -->
-<div zf-modal="" class="quiz-submit-modal small dialog" overlay-close="false" id="checkModal" animation-in="slideInUp" animation-out="slideOutDown">
+<div zf-modal="" class="quiz-submit-modal small dialog" overlay-close="false" id="checkModal" animation-in="slideInUp" animation-out="slideOutUp">
   <div class="grid-block vertical">
     <div class="grid-content">
       <h3> Check Answer? </h3>

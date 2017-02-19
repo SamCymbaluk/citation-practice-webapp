@@ -22,6 +22,7 @@
     vm.renderHtml = renderHtml;
     vm.everythingSubmitted = everythingSubmitted;
     vm.navigateToLesson = navigateToLesson;
+    vm.refreshBlocks = refreshBlocks;
 
     //Quiz state object
     vm.quiz = {};
@@ -248,11 +249,7 @@
           }
 
           //Correctly order the sortable li's again cause jquery likes to fk this up for some reason
-          const ul = $('.ui-sortable');
-          const li = ul.children('li');
-          li.detach().sort((a,b) => _findWithAttribute(citation.blocks, 'id', a.childNodes[1].id) - _findWithAttribute(citation.blocks, 'id', b.childNodes[1].id));
-          ul.append(li);
-
+          refreshBlocks();
 
           //Check intext citation
           const intext = $('#intext');
@@ -345,6 +342,21 @@
 
     function navigateToLesson() {
       $location.path('/');
+    }
+
+    /**
+    * Should be called when a modal is fired or when a class is added to the sortable blocks
+    * Provides a fix to the issue where the blocks' visual position does not reflect their actual position
+    */
+    function refreshBlocks() {
+      $timeout(() => {
+        const citation = vm.quiz.citations[vm.citationIndex];
+        
+        const ul = $('.ui-sortable');
+        const li = ul.children('li');
+        li.detach().sort((a,b) => _findWithAttribute(citation.blocks, 'id', a.childNodes[1].id) - _findWithAttribute(citation.blocks, 'id', b.childNodes[1].id));
+        ul.append(li);
+      });
     }
 
     /*
