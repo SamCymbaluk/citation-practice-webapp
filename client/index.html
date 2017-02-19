@@ -13,6 +13,10 @@
   </head>
   <body>
 
+    <!--<zf-offcanvas class="template-panel" id="template" position="left">
+      <img src="/assets/img/template.png">
+    </zf-offcanvas>-->
+
     <div class="grid-frame vertical">
       <!--Header -->
       <div class="grid-content shrink" style="padding: 0; box-shadow: 0px 1px 5px #888888;">
@@ -21,9 +25,20 @@
         </ul>
       </div>
 
-      <div ui-view class="grid-content">
+      <div ui-view class="grid-content" style="color:$gray">
       </div>
 
+      <button class="button large template-button" zf-toggle="template">
+        <span>Template</span>
+      </button>
+
+    </div>
+
+    <div zf-panel="" id="template">
+      <div class="grid-block vertical">
+        <img src="/assets/img/template.png">
+        <button class="button template-close" zf-close="">Close</button>
+      </div>
     </div>
 
   </body>

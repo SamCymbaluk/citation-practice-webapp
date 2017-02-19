@@ -9,6 +9,38 @@
   padding: 3px;
 }
 
+.template-button {
+  position: fixed;
+  top: 50%;
+  border-radius: 0px 10px 10px 0px;
+  padding-right: 3px;
+  padding-left: 3px;
+}
+
+.template-button span {
+  writing-mode: tb-rl;
+  //padding: 1rem 0px 1rem 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.template-close {
+  margin: auto;
+  margin-top: 15px;
+}
+
+.img-container:before {
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.img-container img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
 .highlight {
   opacity: 0.7;
 }
