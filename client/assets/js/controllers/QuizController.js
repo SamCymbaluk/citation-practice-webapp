@@ -35,7 +35,7 @@
 
     //Load data from backend
     $.ajax({
-      url: 'http://cathedralgaels.ca:3001/mla/citations',
+      url: 'http://localhost:3001/mla/citations',
       success: (data) => {
         quiz = data;
         quizCitations = _clone(data);
@@ -322,7 +322,7 @@
 
       $.ajax({
         type: 'POST',
-        url: 'http://cathedralgaels.ca:3001/mla/results',
+        url: 'http://localhost:3001/mla/results',
         data: quizData,
         success: (data, status, xhr) => {
           //Timeout updates ng-show/if
@@ -351,7 +351,7 @@
     function refreshBlocks() {
       $timeout(() => {
         const citation = vm.quiz.citations[vm.citationIndex];
-        
+
         const ul = $('.ui-sortable');
         const li = ul.children('li');
         li.detach().sort((a,b) => _findWithAttribute(citation.blocks, 'id', a.childNodes[1].id) - _findWithAttribute(citation.blocks, 'id', b.childNodes[1].id));
