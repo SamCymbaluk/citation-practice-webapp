@@ -196,18 +196,23 @@ controller: QuizController as vm
   <div class="grid-block vertical">
     <h3 class="text-center">Score</h3>
 
-    <!-- Score progress bar -->
-    <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score > 0">
-      <div class="progress-bar" style="width:{{vm.quiz.citations[vm.citationIndex].score}}%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
-        <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+    <span class="score-container">
+      <!-- Score progress bar -->
+      <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score > 0">
+        <div class="progress-bar" style="width:{{vm.quiz.citations[vm.citationIndex].score}}%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
+          <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+        </div>
       </div>
-    </div>
-    <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score === 0">
-      <div class="progress-bar" style="width:100%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
-        <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+      <div class="progress-container" ng-if="vm.quiz.citations[vm.citationIndex].score === 0">
+        <div class="progress-bar" style="width:100%; background-color:{{vm.quiz.citations[vm.citationIndex].score_color}}">
+          <div class="progress-label">{{vm.quiz.citations[vm.citationIndex].score}}%</div>
+        </div>
       </div>
-    </div>
 
+      <div class="quiz-final-comparison">
+        <p ng-bind-html="vm.renderHtml(vm.quiz.comparisons[vm.citationIndex])"/p>
+      </div>
+    </span>
 
     <br>
     <p>{{vm.quiz.citations[vm.citationIndex].end_text}}</p>

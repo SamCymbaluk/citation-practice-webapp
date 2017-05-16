@@ -169,6 +169,22 @@ input.incorrect {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
+.score-container {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      padding: 0px;
+      margin: 0px;
+}
+
+.quiz-final-comparison {
+    padding: 0.5rem;
+    background-color: $body-background;
+}
+
+.quiz-final-comparison > p {
+    padding-left: 3rem;
+    text-indent: -3rem;
+}
+
 
 
 .quiz-nav {

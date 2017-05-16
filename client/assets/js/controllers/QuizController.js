@@ -35,7 +35,7 @@
 
     //Load data from backend
     $.ajax({
-      url: 'http://localhost:3001/mla/citations',
+      url: 'http://cathedralgaels.ca:3001/mla/citations',
       success: (data) => {
         quiz = data;
         quizCitations = _clone(data);
@@ -49,6 +49,7 @@
     */
     function _setupQuiz() {
       vm.quiz.citations = [];
+      vm.quiz.comparisons = [];
       vm.quiz.submitted = false;
 
       //Shuffle citation order after cloning citations from quiz
@@ -119,7 +120,6 @@
             const citation = vm.quiz.citations[vm.citationIndex];
 
             const debug = Array.from($('.quiz-sortable-block')).map((ele) => ele.innerText);
-            console.log(debug);
 
             //Update quiz state
             const ids = Array.from($('.quiz-sortable-block')).map((ele) => ele.childNodes[1].id);
@@ -283,7 +283,7 @@
       const citation = vm.quiz.citations[vm.citationIndex];
       citation.submitted = true;
       _calculateScore();
-
+      _doComparison();
       _updateCitation();
     }
 
@@ -322,7 +322,7 @@
 
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:3001/mla/results',
+        url: 'http://cathedralgaels.ca:3001/mla/results',
         data: quizData,
         success: (data, status, xhr) => {
           //Timeout updates ng-show/if
@@ -362,6 +362,23 @@
     /*
       Util functions
     */
+    function _doComparison() {
+      if (!answers[vm.citationIndex]) return;
+
+      let text = '';
+      const blocks = vm.quiz.citations[vm.citationIndex].blocks;
+      const answer = answers[vm.citationIndex];
+      for (let i = 0; i < blocks.length; i++) {
+        if (blocks[i].id === answer[i]) {
+          text += `<span style="color: green"> ${blocks[_findWithAttribute(blocks,'id',answer[i])].text} </span>`
+        } else {
+          text += `<span style="color: red"> ${blocks[_findWithAttribute(blocks,'id',answer[i])].text} </span>`
+        }
+      }
+      vm.quiz.comparisons[vm.citationIndex] = text;
+    }
+
+
     function _calculateScore() {
       const citation = vm.quiz.citations[vm.citationIndex];
       const answer = answers[vm.citationIndex];
