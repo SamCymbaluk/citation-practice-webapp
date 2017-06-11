@@ -25,6 +25,8 @@
   border-bottom-right-radius: 0px;
 
   min-width: 580px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   /*max-width: 1000px;*/
   /* Modify style for small screens */
   @include breakpoint(portrait){
@@ -202,6 +204,9 @@ input.incorrect {
 
   background-color: white;
   min-width: 580px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
   /* Modify style for small screens */
   @include breakpoint(portrait){
     width: 100%;

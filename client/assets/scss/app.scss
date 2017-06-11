@@ -2,6 +2,7 @@
 @import "foundation";
 @import "lesson";
 @import "quiz";
+@import "controlpanel";
 
 .logo {
   height: 40px;
@@ -71,4 +72,15 @@
   font-size: 25px;
   line-height: 50px;
   color: white;
+}
+
+.shadow-container {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 0px;
+  margin: 0px;
+}
+
+.active {
+  background: smartscale($primary-color, 7%);
+  font-weight: bold;
 }

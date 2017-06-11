@@ -1,0 +1,62 @@
+---
+name: admin
+url: /admin
+title: Admin
+controller: AdminController as vm
+---
+<link data-require="bootstrap-css@3.2.0" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+<div class="grid-block align-spaced">
+  <div ng-if="!vm.authenticated">
+    <p class="text-center no-perm">No permission</p>
+  </div>
+  <div ng-if="vm.authenticated" class="control-panel">
+    <h2>Admin Control Panel</h2>
+    <hr>
+    <ul class="primary menu-bar admin-menu">
+      <li><a id="1-btn" ng-click="vm.changeState(vm.StateEnum.RESULTS)">View Quiz Results</a></li>
+      <li><a id="2-btn" ng-click="vm.changeState(vm.StateEnum.CLASSROOMS)">Manage Classrooms</a></li>
+      <li><a id="3-btn" ng-click="vm.changeState(vm.StateEnum.CITATIONS)">Manage Citations</a></li>
+    </ul>
+    <br>
+
+    <div class="quiz-results" ng-if="vm.state === vm.StateEnum.RESULTS">
+      <h4>Quiz Results</h4>
+      <table st-table="rowCollection" class="table table-striped">
+    		<thead>
+      		<tr>
+            <th st-sort="classroom"> Classroom</th>
+      			<th st-sort="firstName">First name</th>
+      			<th st-sort="lastName">Last Name</th>
+      			<th st-sort="score">Score</th>
+      			<th st-sort="balance">Timestamp</th>
+      		</tr>
+    		</thead>
+    		<tbody>
+      		<tr ng-repeat="row in vm.rowCollection">
+      			<td>{{row.firstName | uppercase}}</td>
+      			<td>{{row.lastName}}</td>
+      			<td>{{row.birthDate | date}}</td>
+      			<td>{{row.balance | currency}}</td>
+      			<td><a ng-href="mailto:{{row.email}}">{{row.email}}</a></td>
+      		</tr>
+    		</tbody>
+    		<tfoot>
+    			<tr>
+    				<td colspan="5" class="text-center">
+    					<div st-pagination="" st-items-by-page="10" st-displayed-pages="7"></div>
+    				</td>
+    			</tr>
+    		</tfoot>
+	   </table>
+    </div>
+
+    <div class="manage-classrooms" ng-if="vm.state === vm.StateEnum.CLASSROOMS">
+      <h4>Classrooms</h4>
+    </div>
+
+    <div class="manage-citations" ng-if="vm.state === vm.StateEnum.CITATIONS">
+      <h4>Citations</h4>
+    </div>
+
+  </div>
+</div>

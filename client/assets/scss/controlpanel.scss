@@ -1,0 +1,29 @@
+.no-perm {
+  margin: 5rem;
+  padding: 10px;
+  background-color: #ffffe6;
+  border-radius: 5px;
+}
+
+.control-panel {
+  width: 75%;
+  margin: 0px;
+
+  padding: 25px;
+  padding-bottom: 10rem;
+  background-color: white;
+
+  border-radius: 0px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.admin-menu {
+  font-size: 20px;
+}
+
+.admin-menu > li > a {
+  font-size: 16px;
+}

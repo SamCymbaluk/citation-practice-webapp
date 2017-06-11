@@ -23,6 +23,7 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-apps": "~1.2.0"
+    "foundation-apps": "~1.2.0",
+    "angular-smart-table": "^2.1.8"
   }
 }
