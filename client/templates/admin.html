@@ -21,7 +21,7 @@ controller: AdminController as vm
 
     <div class="quiz-results" ng-if="vm.state === vm.StateEnum.RESULTS">
       <h4>Quiz Results</h4>
-      <table st-table="rowCollection" class="table table-striped">
+      <table st-table="results" class="table table-striped">
     		<thead>
       		<tr>
             <th st-sort="classroom"> Classroom</th>
@@ -32,12 +32,12 @@ controller: AdminController as vm
       		</tr>
     		</thead>
     		<tbody>
-      		<tr ng-repeat="row in vm.rowCollection">
-      			<td>{{row.firstName | uppercase}}</td>
+      		<tr ng-repeat="row in vm.results">
+      			<td>{{row.classroom | uppercase}}</td>
+      			<td>{{row.firstName}}</td>
       			<td>{{row.lastName}}</td>
-      			<td>{{row.birthDate | date}}</td>
-      			<td>{{row.balance | currency}}</td>
-      			<td><a ng-href="mailto:{{row.email}}">{{row.email}}</a></td>
+      			<td>{{row.score}}</td>
+            <td>{{row.timestamp | date:'medium'}}</td>
       		</tr>
     		</tbody>
     		<tfoot>
@@ -52,6 +52,29 @@ controller: AdminController as vm
 
     <div class="manage-classrooms" ng-if="vm.state === vm.StateEnum.CLASSROOMS">
       <h4>Classrooms</h4>
+      <table st-table="classrooms" class="table table-striped">
+        <thead>
+          <tr>
+            <th st-sort="classroom">Classroom</th>
+            <th st-sort="firstName">Results</th>
+            <th st-sort="lastName">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in vm.classrooms">
+            <td>{{row.id | uppercase}}</td>
+            <td><a href="#!/classroom?id={{row.key}}">View results</a></td>
+            <td><a>Remove</a></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="text-center">
+              <div st-pagination="" st-items-by-page="10" st-displayed-pages="7"></div>
+            </td>
+          </tr>
+        </tfoot>
+     </table>
     </div>
 
     <div class="manage-citations" ng-if="vm.state === vm.StateEnum.CITATIONS">
