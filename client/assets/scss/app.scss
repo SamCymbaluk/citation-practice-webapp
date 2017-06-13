@@ -7,9 +7,17 @@
 .logo {
   height: 40px;
   width: 40px;
-  padding: 3px;
+  padding: 0px;
+  margin: 0px;
 }
 
+.site-title {
+  color: white;
+}
+
+.menu-group, .menu-bar {
+  height: 50px;
+}
 .template-button {
   position: fixed;
   top: 50%;

@@ -9,8 +9,6 @@
     <script src="./assets/js/templates.js"></script>
     <script src="./assets/js/routes.js"></script>
     <script src="./assets/js/app.js"></script>
-    <!--<link data-require="bootstrap-css@3.2.0" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>-->
-    <script src="http://lorenzofox3.github.io/smart-table-website/bower_components/angular-smart-table/dist/smart-table.js"></script>
   </head>
   <body>
 
@@ -21,9 +19,19 @@
     <div class="grid-frame vertical">
       <!--Header -->
       <div class="grid-content shrink" style="padding: 0; box-shadow: 0px 1px 5px #888888;">
-        <ul class="primary condense menu-bar">
-          <img src="/assets/img/chs.png" class="logo">
-        </ul>
+        <div class="menu-group primary">
+          <div class="menu-group left">
+            <ul class="primary condense menu-bar">
+              <li><a href="https://chs.hwcdsb.ca/learningcommons/" style="padding: 5px"><img src="/assets/img/chs.png" hspace="0" vspace="0" width="40" height="40" style="margin: 0px"></a></li>
+              <li><a href="#">MLA 8th Ed. Online Practice</a></li>
+            </ul>
+          </div>
+          <div class="menu-group right">
+            <ul class="primary condense menu-bar">
+              <li><a href="https://style.mla.org/files/2016/04/practice-template.pdf" target="_blank">MLA Template</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <div ui-view class="grid-content" style="color:$gray">
