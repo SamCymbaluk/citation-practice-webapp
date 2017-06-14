@@ -16,6 +16,7 @@
       });
       $timeout(() => changeState(vm.StateEnum.RESULTS));
 
+      vm.renderHtml = renderHtml;
       vm.changeState = changeState
 
       $('body').css('background-color','rgb(241, 241, 241)');
@@ -36,10 +37,27 @@
       {id: 'L7FM2N', key:'ODQ4MDA0MGUtYzEwMi00ZGNjLWFiYTgtOGNhOWM2YWU0ZmMw'},
     ]
 
-      function changeState(state) {
-        $(`#${vm.state}-btn`).removeClass("active");
-        $(`#${state}-btn`).addClass("active");
-        vm.state = state;
-      }
+    _loadCitations();
+
+    function _loadCitations() {
+      $.ajax({
+        url: 'http://cathedralgaels.ca:3001/mla/citations',
+        success: (data) => {
+          vm.citations = data;
+        }
+      });
+    }
+
+
+
+    function changeState(state) {
+      $(`#${vm.state}-btn`).removeClass("active");
+      $(`#${state}-btn`).addClass("active");
+      vm.state = state;
+    }
+
+    function renderHtml(html) {
+      return $sce.trustAsHtml(html);
+    }
   }
 })();

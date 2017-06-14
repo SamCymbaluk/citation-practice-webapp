@@ -275,7 +275,7 @@
       });
     }
 
-     function renderHtml(html) {
+    function renderHtml(html) {
       return $sce.trustAsHtml(html);
     }
 

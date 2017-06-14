@@ -19,22 +19,34 @@
     <div class="grid-frame vertical">
       <!--Header -->
       <div class="grid-content shrink" style="padding: 0; box-shadow: 0px 1px 5px #888888;">
-        <div class="menu-group primary">
-          <div class="menu-group left">
-            <ul class="primary condense menu-bar">
+        <div class="menu-group site-menu primary">
+          <div class="menu-group site-menu left">
+            <ul class="primary condense menu-bar site-menu">
               <li><a href="https://chs.hwcdsb.ca/learningcommons/" style="padding: 5px"><img src="/assets/img/chs.png" hspace="0" vspace="0" width="40" height="40" style="margin: 0px"></a></li>
               <li><a href="#">MLA 8th Ed. Online Practice</a></li>
             </ul>
           </div>
-          <div class="menu-group right">
-            <ul class="primary condense menu-bar">
+          <div class="menu-group site-menu right">
+            <ul class="primary condense menu-bar site-menu">
               <li><a href="https://style.mla.org/files/2016/04/practice-template.pdf" target="_blank">MLA Template</a></li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div ui-view class="grid-content" style="color:$gray">
+      <div class="grid-content" style="padding: 0px">
+        <div ui-view class="grid-content" style="color:$gray">
+        </div>
+        <footer>
+            <p>For further information please consult:</p>
+            <a href="https://style.mla.org" target="_blank">
+              MLA Style Guide</a><br>
+            <a href="https://www.educreations.com/lesson/view/mla-8th-ed-formatting-a-works-cited-page/41733761/?s=TIn0nZ&ref=link" target="_blank">
+              How to format a Works Cited page using the 8th ed. MLA</a><br>
+            <a href="https://www.educreations.com/lesson/view/mla-8th-ed-book-citation-and-in-text-citation/42169471/?s=iPNZ2X&ref=app" target="_blank">
+              How to create a book citation and in-text citation using the 8th ed. MLA</a><br><br>
+            <p style="margin-bottom: 0rem">Citation Practice created by L. O'Brien and S. Cymbaluk</p>
+        </footer>
       </div>
     </div>
   </body>

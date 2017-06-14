@@ -21,6 +21,7 @@
 .lesson-container {
   padding-top: 25px;
   padding-bottom: 25px;
+  margin-bottom: 5rem;
   @include breakpoint(portrait){
     padding-top: 10px;
   }

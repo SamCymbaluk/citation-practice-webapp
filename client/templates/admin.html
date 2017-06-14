@@ -79,6 +79,31 @@ controller: AdminController as vm
 
     <div class="manage-citations" ng-if="vm.state === vm.StateEnum.CITATIONS">
       <h4>Citations</h4>
+      <table st-table="citations" class="table table-striped">
+        <thead>
+          <tr>
+            <th st-sort="citation">Citation</th>
+            <th st-sort="blocks">Blocks</th>
+            <th st-sort="intext">Intext Ref.</th>
+            <th st-sort="edit">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in vm.citations">
+            <td>{{row.title}}</td>
+            <td ng-bind-html="vm.renderHtml(row.blocks.join(' '))"></td>
+            <td ng-bind-html="vm.renderHtml(row.intext_answers[0])"></td>
+            <td><a>Edit</a></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="text-center">
+              <div st-pagination="" st-items-by-page="10" st-displayed-pages="7"></div>
+            </td>
+          </tr>
+        </tfoot>
+     </table>
     </div>
 
   </div>

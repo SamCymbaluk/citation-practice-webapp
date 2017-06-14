@@ -15,27 +15,28 @@
   color: white;
 }
 
-.menu-group, .menu-bar {
+.site-menu {
   height: 50px;
 }
-.template-button {
-  position: fixed;
-  top: 50%;
-  border-radius: 0px 10px 10px 0px;
-  padding-right: 3px;
-  padding-left: 3px;
+
+.site-menu > li > a {
+  font-size: 16px;
+  padding: 16px;
 }
 
-.template-button span {
-  writing-mode: tb-rl;
-  //padding: 1rem 0px 1rem 0px;
-  padding: 0px;
+footer {
+  padding: 1rem;
+  background-color: darken(rgb(241, 241, 241), 4);
+  width: 100%;
   margin: 0px;
 }
 
-.template-close {
-  margin: auto;
-  margin-top: 15px;
+footer > p {
+  margin-bottom: 0.5rem;
+}
+
+footer > p, a {
+  font-size: 12px;
 }
 
 .img-container:before {
