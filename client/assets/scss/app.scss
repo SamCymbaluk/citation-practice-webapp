@@ -1,7 +1,9 @@
 @import "settings";
+@import "bootstrap";
 @import "foundation";
 @import "lesson";
 @import "quiz";
+@import "admin";
 @import "controlpanel";
 
 .logo {
@@ -92,4 +94,9 @@ footer > p, a {
 .active {
   background: smartscale($primary-color, 7%);
   font-weight: bold;
+}
+
+.scroll-modal {
+  overflow-y: auto;
+  max-height: 600px;
 }

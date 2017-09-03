@@ -1,0 +1,48 @@
+---
+name: classroom
+url: /classroom
+title: Classroom
+controller: ClassroomController as vm
+---
+<div class="grid-block align-spaced">
+  <div ng-if="!vm.authenticated">
+    <p class="text-center no-perm">No permission</p>
+  </div>
+  <div ng-if="vm.authenticated" class="control-panel">
+    <h2>Classroom Results</h2>
+    <hr>
+
+    <div class="quiz-results">
+      <h4>Quiz Results</h4>
+      <table st-table="results" class="table table-striped">
+        <thead>
+        <tr>
+          <th st-sort="classroom"> Classroom</th>
+          <th st-sort="firstName">First name</th>
+          <th st-sort="lastName">Last Name</th>
+          <th st-sort="score">Score</th>
+          <th st-sort="email">Email</th>
+          <th st-sort="balance">Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in vm.results">
+          <td>{{row.classroom | uppercase}}</td>
+          <td>{{row.name_first}}</td>
+          <td>{{row.name_last}}</td>
+          <td>{{row.score}}</td>
+          <td>{{row.email}}</td>
+          <td>{{row.submission_timestamp | date:'medium'}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5" class="text-center">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="7"></div>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

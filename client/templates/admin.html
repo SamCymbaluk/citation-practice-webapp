@@ -4,7 +4,7 @@ url: /admin
 title: Admin
 controller: AdminController as vm
 ---
-<link data-require="bootstrap-css@3.2.0" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+<!--<link data-require="bootstrap-css@3.3.7" data-semver="3.3.7" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
 <div class="grid-block align-spaced">
   <div ng-if="!vm.authenticated">
     <p class="text-center no-perm">No permission</p>
@@ -28,16 +28,18 @@ controller: AdminController as vm
       			<th st-sort="firstName">First name</th>
       			<th st-sort="lastName">Last Name</th>
       			<th st-sort="score">Score</th>
+            <th st-sort="email">Email</th>
       			<th st-sort="balance">Timestamp</th>
       		</tr>
     		</thead>
     		<tbody>
       		<tr ng-repeat="row in vm.results">
       			<td>{{row.classroom | uppercase}}</td>
-      			<td>{{row.firstName}}</td>
-      			<td>{{row.lastName}}</td>
+      			<td>{{row.name_first}}</td>
+      			<td>{{row.name_last}}</td>
       			<td>{{row.score}}</td>
-            <td>{{row.timestamp | date:'medium'}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.submission_timestamp | date:'medium'}}</td>
       		</tr>
     		</tbody>
     		<tfoot>
@@ -56,15 +58,15 @@ controller: AdminController as vm
         <thead>
           <tr>
             <th st-sort="classroom">Classroom</th>
-            <th st-sort="firstName">Results</th>
-            <th st-sort="lastName">Remove</th>
+            <th st-sort="results">Results</th>
+            <th st-sort="remove">Remove</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="row in vm.classrooms">
             <td>{{row.id | uppercase}}</td>
             <td><a href="#!/classroom?id={{row.key}}">View results</a></td>
-            <td><a>Remove</a></td>
+            <td><a ng-click="vm.delClassroom(row.id)">Remove</a></td>
           </tr>
         </tbody>
         <tfoot>
@@ -75,6 +77,7 @@ controller: AdminController as vm
           </tr>
         </tfoot>
      </table>
+       <button class="button success" id="addClassroom" ng-click="vm.addClassroom()">Add Classroom</button>
     </div>
 
     <div class="manage-citations" ng-if="vm.state === vm.StateEnum.CITATIONS">
@@ -93,7 +96,7 @@ controller: AdminController as vm
             <td>{{row.title}}</td>
             <td ng-bind-html="vm.renderHtml(row.blocks.join(' '))"></td>
             <td ng-bind-html="vm.renderHtml(row.intext_answers[0])"></td>
-            <td><a>Edit</a></td>
+            <td><a ng-click="vm.beginEditingCitation(row.id)" zf-open="editCitationModal">Edit</a></td>
           </tr>
         </tbody>
         <tfoot>
@@ -105,6 +108,72 @@ controller: AdminController as vm
         </tfoot>
      </table>
     </div>
-
   </div>
 </div>
+
+<!-- Edit Citation Modal  -->
+<div zf-modal="" id="editCitationModal" animation-in="slideInUp" animation-out="slideOutUp">
+  <h3 class="text-center">Edit Citation</h3>
+  <br>
+  <form class="grid-content scroll-modal" name="editCitationForm" ng-submit="vm.putCitation()">
+    <label>
+      Title
+      <input type="text" id="citation_title" value="{{vm.currentCitation.title}}" required>
+    </label>
+
+    <label>
+      Blocks
+      <label class="text-group" ng-repeat="block in vm.currentCitation.blocks track by $index">
+        <span class="inline-label">
+          <input type="text" id="citation_block{{$index}}" class="citation-block" value="{{block}}">
+          <span class="form-label"><a ng-click="vm.removeCitationBlock($index)">X</a></span>
+        </span>
+      </label>
+      <button type="button" class="button small success" ng-click="vm.addCitationBlock()">Add Block</button>
+    </label>
+
+    <label>
+      Intext Info
+        <input type="text" id="intext_info" value="{{vm.currentCitation.intext_info}}">
+    </label>
+
+    <label>
+      Index Answers
+      <label class="text-group" ng-repeat="answer in vm.currentCitation.intext_answers track by $index">
+        <span class="inline-label">
+          <input type="text" id="intext_answer{{$index}}" class="citation-answer" value="{{answer}}">
+          <span class="form-label"><a ng-click="vm.removeIntextAnswer($index)">X</a></span>
+        </span>
+      </label>
+      <button type="button" class="button small success" ng-click="vm.addIntextAnswer()">Add Answer</button>
+    </label>
+
+    <label>
+      Hints
+      <label class="text-group" ng-repeat="hint in vm.currentCitation.hints track by $index">
+        <span class="inline-label">
+          <input type="text" id="hint{{$index}}" class="citation-hint" value="{{hint}}">
+          <span class="form-label"><a ng-click="vm.removeHint($index)">X</a></span>
+        </span>
+      </label>
+      <button type="button" class="button small success" ng-click="vm.addHint()">Add Hint</button>
+    </label>
+
+    <label>
+      Final Text
+        <input type="text" id="end_text" value="{{vm.currentCitation.end_text}}">
+    </label>
+
+
+    <div class="grid-block align-center">
+      <div class="grid-content shrink">
+        <input type="submit" class="button" value="Submit">
+      </div>
+      <div class="grid-content shrink">
+        <a zf-close="" class="button" style="background-color: #F04124">Close</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<zf-notification-set id="submit-notification" position="top-right"></zf-notification-set>

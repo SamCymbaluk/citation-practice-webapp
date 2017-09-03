@@ -1,0 +1,16 @@
+.text-group {
+  margin: 1px;
+}
+
+
+.text-group > span {
+  margin: 0px;
+}
+
+.text-group > span > input {
+  margin: 0px;
+}
+
+.text-group > button {
+  margin-top: 5px;
+}

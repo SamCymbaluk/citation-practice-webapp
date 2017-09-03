@@ -35,7 +35,7 @@
 
     //Load data from backend
     $.ajax({
-      url: 'http://cathedralgaels.ca:3001/mla/citations',
+      url: 'http://localhost:3001/mla/citations',
       success: (data) => {
         quiz = data;
         quizCitations = _clone(data);
@@ -303,7 +303,7 @@
       const name_first = $('#quizsubmit-name_first').val();
       const name_last = $('#quizsubmit-name_last').val();
       const email = $('#quizsubmit-email').val();
-      const teacher_emails = _parseEmails($('#quizsubmit-teacher_emails').val());
+      const classroom = $('#quizsubmit-classroom').val();
 
       const score = Math.round(_calculateQuizScore());
 
@@ -311,7 +311,7 @@
         name_first,
         name_last,
         email,
-        teacher_emails,
+        classroom,
         score
       };
 
@@ -322,7 +322,7 @@
 
       $.ajax({
         type: 'POST',
-        url: 'http://cathedralgaels.ca:3001/mla/results',
+        url: 'http://localhost:3001/mla/results',
         data: quizData,
         success: (data, status, xhr) => {
           //Timeout updates ng-show/if
