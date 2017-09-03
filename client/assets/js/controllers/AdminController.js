@@ -49,7 +49,7 @@
     function _loadResults() {
       $.ajax({
         datatype: 'json',
-        url: 'http://localhost:3001/mla/results',
+        url: 'http://cathedralgaels.ca:3001/mla/results',
         headers: authHeader,
         success: (data) => {
           $timeout(() => {
@@ -65,7 +65,7 @@
     function _loadClassrooms() {
       $.ajax({
         datatype: 'json',
-        url: 'http://localhost:3001/mla/classrooms',
+        url: 'http://cathedralgaels.ca:3001/mla/classrooms',
         success: (data) => {
           $timeout(() => {
             vm.classrooms = data;
@@ -79,7 +79,7 @@
 
     function _loadCitations() {
       $.ajax({
-        url: 'http://localhost:3001/mla/citations',
+        url: 'http://cathedralgaels.ca:3001/mla/citations',
         success: (data) => {
           vm.citations = data;
         }
@@ -120,7 +120,7 @@
     function addClassroom() {
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:3001/mla/classrooms',
+        url: 'http://cathedralgaels.ca:3001/mla/classrooms',
         headers: authHeader,
         data: _generateClassroom(),
         success: (data, status, xhr) => {
@@ -135,7 +135,7 @@
     function delClassroom(id) {
       $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:3001/mla/classrooms/' + id,
+        url: 'http://cathedralgaels.ca:3001/mla/classrooms/' + id,
         headers: authHeader,
         success: (data, status, xhr) => {
           _loadClassrooms();
@@ -207,7 +207,7 @@
 
       $.ajax({
         type: 'PUT',
-        url: 'http://localhost:3001/mla/citations/' + vm.currentCitation.id,
+        url: 'http://cathedralgaels.ca:3001/mla/citations/' + vm.currentCitation.id,
         headers: authHeader,
         data: {data: formData},
         success: (data, status, xhr) => {

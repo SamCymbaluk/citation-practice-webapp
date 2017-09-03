@@ -35,7 +35,7 @@
 
     //Load data from backend
     $.ajax({
-      url: 'http://localhost:3001/mla/citations',
+      url: 'http://cathedralgaels.ca:3001/mla/citations',
       success: (data) => {
         quiz = data;
         quizCitations = _clone(data);
@@ -322,7 +322,7 @@
 
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:3001/mla/results',
+        url: 'http://cathedralgaels.ca:3001/mla/results',
         data: quizData,
         success: (data, status, xhr) => {
           //Timeout updates ng-show/if

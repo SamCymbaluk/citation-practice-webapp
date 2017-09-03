@@ -17,7 +17,7 @@
     function _loadResults() {
       $.ajax({
         datatype: 'json',
-        url: `http://localhost:3001/mla/results/classroom/${vm.id}`,
+        url: `http://cathedralgaels.ca:3001/mla/results/classroom/${vm.id}`,
         success: (data) => {
           $timeout(() => {
             vm.results = data;
