@@ -14,18 +14,18 @@ You'll need the following software installed to get started.
   - [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `npm install -g gulp bower`
     - Depending on how Node is configured on your machine, you may need to run `sudo npm install -g gulp bower` instead, if you get an error with the first command.
 
-## Get Started
+## Setup
 
-Clone this repository, where `app` is the name of your app.
+Clone this repository.
 
 ```bash
-git clone https://github.com/zurb/foundation-apps-template.git app
+git clone https://github.com/SamCymbaluk/citation-practice-webapp.git
 ```
 
 Change into the directory.
 
 ```bash
-cd app
+cd citation-practice-webapp
 ```
 
 Install the dependencies. If you're running Mac OS or Linux, you may need to run `sudo npm install` instead, depending on how your machine is configured.
@@ -38,13 +38,26 @@ bower install
 While you're working on your project, run:
 
 ```bash
-npm start
+foundation watch
 ```
 
-This will compile the Sass and assemble your Angular app. **Now go to `localhost:8080` in your browser to see it in action.** When you change any file in the `client` folder, the appropriate Gulp task will run to build new files.
+## Deploy
+Once you have setup the project, follow these steps to deploy the web app to a production environment.
 
-To run the compiling process once, without watching any files, use the `build` command.
+#### 1. Setup the backend
+This web app relies on a RESTful NodeJS backend.
+Click [here](https://github.com/SamCymbaluk/citation-practice-backend) and follow the setup instructions before continuing.
 
+#### 2. Set the backend URL
+To point the web app at the backend you just setup, navigate into the [/client/assets/js/controllers](/client/assets/js/controllers) folder.
+Here, you will see a few Controller files. Go into each file and replace the URLs from the ajax requests with the URL of the backend you just setup (defaults to `http://cathedralgaels.ca:3001`).
+
+#### 3. Compile
+When inside the `citation-practice-webapp` folder, run:
 ```bash
-npm start build
+gulp build
 ```
+This will compile the app into the build folder
+
+#### 4. Deploy the front end
+To complete the deploy process, simply copy the contents of the `build` folder that was created in step 3 into the root directory of your web server.
